@@ -1,0 +1,3979 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#f8f9fa" id="themeColor">
+<title>ダビマス総合サポートツール　サポマス</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THEME SYSTEM
+   ============================================================ */
+:root {
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --surface-2: #f1f3f5;
+  --surface-3: #e9ecef;
+  --ink: #212529;
+  --muted: #6c757d;
+  --accent: #ffc107;
+  --accent-dark: #e0a800;
+  --accent-glow: rgba(255,193,7,0.25);
+  --success: #22c55e;
+  --warning: #ef4444;
+  --info: #3b82f6;
+  --purple: #a855f7;
+  --cyan: #06b6d4;
+  --line: #dee2e6;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --sire-bg: #d4e6f1;
+  --sire-text: #2c5f7c;
+  --dam-bg: #f5b7b1;
+  --dam-text: #8b3a3a;
+  --bar-blue: #5b9bd5;
+  --bar-red: #c55a5a;
+  --row-green: #e2efd9;
+  --row-yellow: #fff2cc;
+  --nav-bg: rgba(255,255,255,0.95);
+  --result-bg: var(--row-yellow);
+  --result-border: var(--accent);
+  --input-bg: var(--surface);
+  --table-header-bg: var(--surface-2);
+  --table-row-bg: var(--surface);
+  --table-row-hover: var(--row-yellow);
+  --note-bg: var(--surface-2);
+  --important-bg: #fff5f5;
+  --menu-bg: var(--surface);
+  --hero-badge-bg: var(--row-yellow);
+  --hero-badge-border: var(--accent);
+  --mode-selector-bg: var(--surface-2);
+  --pedigree-col-bg: var(--surface);
+  --run-mid-bg: #e8f4fd;
+  --thunder-bg: #f3e5f5;
+  --hamburger-bg: var(--surface-2);
+  --hamburger-hover: var(--accent);
+  --rank-A-bg: #f8d7da; --rank-A-text: #721c24; --rank-A-border: #f5c6cb;
+  --rank-B-bg: #fff3cd; --rank-B-text: #856404; --rank-B-border: #ffeeba;
+  --rank-C-bg: #d4edda; --rank-C-text: #155724; --rank-C-border: #c3e6cb;
+  --rank-D-bg: #cce5ff; --rank-D-text: #004085; --rank-D-border: #b8daff;
+  --rank-E-bg: #e2e3e5; --rank-E-text: #383d41; --rank-E-border: #d6d8db;
+  /* Pedigree app vars */
+  --ped-sire-bg: #d6f5f5;
+  --ped-dam-bg: #ffd6e5;
+  --ped-under: #ef4444;
+  --ped-under-bg: #fee2e2;
+  --ped-complete: #10b981;
+  --ped-complete-bg: #d1fae5;
+  --ped-bell: #f59e0b;
+  --ped-charm: #8b5cf6;
+  --ped-header-bg: #1e3a8a;
+}
+
+[data-theme="dark"] {
+  --bg: #070c18;
+  --surface: #0f172a;
+  --surface-2: #1e293b;
+  --surface-3: #334155;
+  --ink: #f8fafc;
+  --muted: #94a3b8;
+  --accent: #f59e0b;
+  --accent-dark: #d97706;
+  --accent-glow: rgba(245,158,11,0.25);
+  --line: rgba(148,163,184,0.12);
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
+  --sire-bg: rgba(91,155,213,0.15);
+  --sire-text: #7eb8e8;
+  --dam-bg: rgba(197,90,90,0.15);
+  --dam-text: #e08a8a;
+  --bar-blue: #5b9bd5;
+  --bar-red: #c55a5a;
+  --row-green: rgba(34,197,94,0.06);
+  --row-yellow: rgba(245,158,11,0.06);
+  --nav-bg: rgba(7,12,24,0.85);
+  --result-bg: linear-gradient(145deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02));
+  --result-border: rgba(245,158,11,0.2);
+  --input-bg: linear-gradient(145deg, rgba(30,41,59,0.9), rgba(15,23,42,0.7));
+  --table-header-bg: linear-gradient(180deg, rgba(30,41,59,0.9), rgba(15,23,42,0.8));
+  --table-row-bg: rgba(15,23,42,0.3);
+  --table-row-hover: rgba(245,158,11,0.05);
+  --note-bg: linear-gradient(90deg, rgba(245,158,11,0.04), rgba(148,163,184,0.02));
+  --important-bg: linear-gradient(90deg, rgba(239,68,68,0.05), rgba(148,163,184,0.02));
+  --menu-bg: linear-gradient(145deg, rgba(30,41,59,0.95), rgba(15,23,42,0.95));
+  --hero-badge-bg: rgba(245,158,11,0.1);
+  --hero-badge-border: rgba(245,158,11,0.2);
+  --mode-selector-bg: rgba(15,23,42,0.7);
+  --pedigree-col-bg: linear-gradient(145deg, rgba(30,41,59,0.6), rgba(15,23,42,0.4));
+  --run-mid-bg: rgba(6,182,212,0.06);
+  --thunder-bg: rgba(168,85,247,0.06);
+  --hamburger-bg: rgba(245,158,11,0.1);
+  --hamburger-hover: rgba(245,158,11,0.2);
+  --rank-A-bg: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(239,68,68,0.1)); --rank-A-text: #f87171; --rank-A-border: rgba(239,68,68,0.25);
+  --rank-B-bg: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.1)); --rank-B-text: #fbbf24; --rank-B-border: rgba(245,158,11,0.25);
+  --rank-C-bg: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.1)); --rank-C-text: #4ade80; --rank-C-border: rgba(34,197,94,0.25);
+  --rank-D-bg: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(59,130,246,0.1)); --rank-D-text: #60a5fa; --rank-D-border: rgba(59,130,246,0.25);
+  --rank-E-bg: linear-gradient(135deg, rgba(148,163,184,0.2), rgba(148,163,184,0.1)); --rank-E-text: #94a3b8; --rank-E-border: rgba(148,163,184,0.25);
+  --ped-sire-bg: rgba(91,213,213,0.15);
+  --ped-dam-bg: rgba(255,105,180,0.12);
+  --ped-under-bg: rgba(239,68,68,0.12);
+  --ped-complete-bg: rgba(34,197,94,0.12);
+  --ped-header-bg: #1e3a8a;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body { font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.7; min-height: 100vh; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+.container { max-width: 960px; margin: 0 auto; padding: 0 1rem; position: relative; }
+
+/* ============================================================
+   NAV & HAMBURGER
+   ============================================================ */
+nav { position: sticky; top: 0; z-index: 100; background: var(--nav-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); transition: background 0.3s; }
+.nav-inner { max-width: 960px; margin: 0 auto; padding: 0.8rem 1rem; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-weight: 900; font-size: 1.1rem; color: var(--ink); transition: color 0.3s; }
+.nav-right { display: flex; align-items: center; gap: 0.8rem; }
+.hamburger { width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; background: var(--hamburger-bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px; transition: all 0.2s; }
+.hamburger:hover { background: var(--hamburger-hover); border-color: var(--accent); }
+.hamburger span { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; transition: all 0.3s; }
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-menu { position: absolute; top: 100%; right: 1rem; background: var(--menu-bg); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 0.5rem; min-width: 220px; box-shadow: var(--shadow-lg); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.25s ease; }
+.nav-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-menu-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1rem; border-radius: 8px; color: var(--muted); font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; background: transparent; width: 100%; font-family: inherit; text-align: left; }
+.nav-menu-item:hover { background: var(--surface-2); color: var(--ink); }
+.nav-menu-item.active { background: var(--accent); color: var(--ink); font-weight: 700; }
+[data-theme="dark"] .nav-menu-item.active { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); }
+.nav-menu-divider { height: 1px; background: var(--line); margin: 0.3rem 0; }
+
+/* Theme toggle in menu */
+.theme-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.7rem 1rem; }
+.theme-toggle-row > span { font-size: 0.9rem; font-weight: 600; color: var(--muted); }
+.theme-toggle-wrap { display: flex; align-items: center; gap: 0.5rem; }
+.theme-label-light { font-size: 0.8rem; color: var(--muted); }
+.theme-label-dark { font-size: 0.8rem; color: var(--muted); }
+.theme-switch { position: relative; width: 44px; height: 24px; cursor: pointer; flex-shrink: 0; display: inline-block; }
+.theme-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+.theme-slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #c1c7cd; border-radius: 24px; transition: all 0.3s ease; }
+.theme-slider::before { content: ""; position: absolute; height: 18px; width: 18px; left: 3px; top: 3px; background: #ffffff; border-radius: 50%; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+.theme-switch input:checked + .theme-slider { background: #475569; }
+.theme-switch input:checked + .theme-slider::before { transform: translateX(20px); background: #fbbf24; }
+
+/* ============================================================
+   APP SELECTOR (LANDING)
+   ============================================================ */
+.app-selector { min-height: calc(100vh - 60px); display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
+.app-selector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; width: 100%; max-width: 900px; }
+.app-card { background: var(--surface); border-radius: var(--radius); padding: 2.5rem 2rem; border: 1px solid var(--line); box-shadow: var(--shadow); transition: all 0.3s ease; cursor: pointer; text-align: center; }
+.app-card:hover { box-shadow: var(--shadow-lg); border-color: var(--accent-dark); transform: translateY(-4px); }
+.app-card-icon { width: 64px; height: 64px; margin: 0 auto 1.2rem; border-radius: var(--radius-sm); display: grid; place-items: center; font-size: 2rem; background: var(--accent); box-shadow: 0 4px 12px rgba(255,193,7,0.3); }
+[data-theme="dark"] .app-card-icon { box-shadow: 0 4px 20px rgba(245,158,11,0.3); }
+.app-card-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+.app-card-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+
+/* ============================================================
+   APP CONTAINERS
+   ============================================================ */
+.app-container { display: none; }
+.app-container.active { display: block; animation: fadeIn 0.4s ease; }
+
+/* ============================================================
+   HERO & SECTIONS
+   ============================================================ */
+.hero { text-align: center; padding: 3rem 1rem 2rem; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--hero-badge-bg); border: 1px solid var(--hero-badge-border); color: var(--accent-dark); padding: 0.35rem 1rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1.2rem; transition: all 0.3s; }
+[data-theme="dark"] .hero-badge { color: var(--accent); }
+.hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1rem; }
+.hero h1 span { color: var(--accent-dark); transition: color 0.3s; }
+[data-theme="dark"] .hero h1 span { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 50%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--muted); font-size: clamp(0.9rem, 2.5vw, 1.05rem); max-width: 520px; margin: 0 auto 1.5rem; }
+.hero-btns { display: flex; gap: 0.7rem; justify-content: center; flex-wrap: wrap; }
+.section { padding: 2rem 0; scroll-margin-top: 60px; }
+.section-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.6rem; }
+.section-title .icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: grid; place-items: center; font-size: 1rem; box-shadow: 0 2px 8px rgba(255,193,7,0.3); transition: all 0.3s; }
+[data-theme="dark"] .section-title .icon { box-shadow: 0 4px 16px rgba(245,158,11,0.3); }
+.section-desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.2rem; padding-left: 2.5rem; }
+.card { background: var(--surface); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.2rem; border: 1px solid var(--line); box-shadow: var(--shadow); transition: all 0.3s; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.75rem 1.8rem; border: none; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit; text-decoration: none; }
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--accent); color: var(--ink); }
+.btn-secondary { background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); }
+.btn-secondary:hover { background: var(--line); }
+.btn-purple { background: linear-gradient(135deg, var(--purple), #7c3aed); color: #fff; }
+.btn-cyan { background: linear-gradient(135deg, var(--cyan), #0891b2); color: #fff; }
+.btn-sm { padding: 0.5rem 1rem; font-size: 0.8rem; }
+.btn-row { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 1.2rem; }
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.form-group label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.35rem; font-weight: 600; }
+.form-group input, .form-group select {
+  width: 100%; padding: 0.75rem 1rem; background: var(--input-bg);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  color: var(--ink); font-size: 1rem; font-family: "Roboto Mono", monospace;
+  transition: all 0.2s; appearance: none;
+}
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent-dark); box-shadow: 0 0 0 3px var(--accent-glow); }
+.form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236c757d'%3E%3Cpath d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;
+}
+[data-theme="dark"] .form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8'%3E%3Cpath d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   MODE SELECTOR
+   ============================================================ */
+.mode-selector { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; background: var(--mode-selector-bg); padding: 0.4rem; border-radius: 12px; border: 1px solid var(--line); transition: all 0.3s; }
+.mode-btn { flex: 1; padding: 0.7rem 0.4rem; border: none; border-radius: 8px; background: transparent; color: var(--muted); font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.25s; font-family: inherit; text-align: center; }
+.mode-btn:hover { color: var(--ink); background: rgba(255,193,7,0.1); }
+[data-theme="dark"] .mode-btn:hover { background: rgba(245,158,11,0.1); }
+.mode-btn.active { background: var(--accent); color: var(--ink); box-shadow: 0 2px 8px rgba(255,193,7,0.3); }
+[data-theme="dark"] .mode-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); box-shadow: 0 4px 20px rgba(245,158,11,0.35); }
+.mode-panel { display: none; }
+.mode-panel.active { display: block; animation: fadeIn 0.35s ease; }
+
+/* ============================================================
+   INPUT TOGGLE
+   ============================================================ */
+.input-toggle { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
+.input-toggle-btn { padding: 0.4rem 1rem; border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+.input-toggle-btn:hover { border-color: var(--accent-dark); color: var(--ink); }
+.input-toggle-btn.active { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+
+/* ============================================================
+   RESULTS
+   ============================================================ */
+.result-box { border-radius: var(--radius); padding: 1.5rem; margin-top: 1.2rem; text-align: center; display: none; background: var(--result-bg); border: 2px solid var(--result-border); position: relative; transition: all 0.3s; }
+[data-theme="dark"] .result-box { border: 1px solid var(--result-border); }
+.result-box.visible { display: block; animation: fadeInUp 0.5s ease; }
+.result-label { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem; font-weight: 500; }
+.result-value { font-family: "Roboto Mono", monospace; font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 700; color: var(--ink); }
+[data-theme="dark"] .result-value { color: var(--accent); text-shadow: 0 0 30px rgba(245,158,11,0.2); }
+.result-detail { margin-top: 0.6rem; font-size: 0.82rem; color: var(--muted); }
+.result-detail span { color: var(--ink); font-weight: 600; }
+.result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.result-card { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1.2rem; transition: all 0.3s; }
+.result-card-title { font-size: 0.8rem; color: var(--muted); font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem; }
+
+/* ============================================================
+   RANK BADGES
+   ============================================================ */
+.rank-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 700; font-size: 0.8rem; font-family: "Roboto Mono", monospace; }
+.rank-A { background: var(--rank-A-bg); color: var(--rank-A-text); border: 1px solid var(--rank-A-border); }
+.rank-B { background: var(--rank-B-bg); color: var(--rank-B-text); border: 1px solid var(--rank-B-border); }
+.rank-C { background: var(--rank-C-bg); color: var(--rank-C-text); border: 1px solid var(--rank-C-border); }
+.rank-D { background: var(--rank-D-bg); color: var(--rank-D-text); border: 1px solid var(--rank-D-border); }
+.rank-E { background: var(--rank-E-bg); color: var(--rank-E-text); border: 1px solid var(--rank-E-border); }
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.data-table-wrap { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--line); }
+.data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.82rem; }
+.data-table th, .data-table td { padding: 0.55rem 0.5rem; text-align: center; border-bottom: 1px solid var(--line); }
+.data-table th { background: var(--table-header-bg); color: var(--ink); font-weight: 700; font-size: 0.78rem; white-space: nowrap; position: sticky; top: 0; z-index: 10; transition: all 0.3s; }
+[data-theme="dark"] .data-table th { color: var(--accent); }
+.data-table td { color: var(--muted); background: var(--table-row-bg); transition: all 0.15s; }
+.data-table tr:hover td { background: var(--table-row-hover); color: var(--ink); }
+.data-table td.editable { cursor: pointer; background: rgba(59,130,246,0.03); border-left: 2px solid transparent; }
+.data-table td.editable:hover { background: rgba(59,130,246,0.08); color: var(--ink); border-left-color: var(--info); }
+.data-table td.edited { background: var(--row-yellow); color: var(--ink); font-weight: 600; border-left: 2px solid var(--accent-dark); }
+[data-theme="dark"] .data-table td.edited { color: var(--accent); border-left-color: var(--accent); }
+.data-table td input { width: 100%; background: var(--bg); border: 1px solid var(--accent-dark); color: var(--ink); text-align: center; padding: 0.3rem; font-family: "Roboto Mono", monospace; font-size: 0.8rem; border-radius: 4px; }
+.actions-bar { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+/* ============================================================
+   NOTES
+   ============================================================ */
+.note { font-size: 0.8rem; color: var(--muted); margin-top: 0.8rem; padding: 0.85rem 1.1rem; background: var(--note-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--accent); line-height: 1.6; transition: all 0.3s; }
+.note.important { border-left-color: var(--warning); background: var(--important-bg); }
+
+/* ============================================================
+   SHARE & FOOTER
+   ============================================================ */
+.share-section { text-align: center; padding: 2rem 0 3rem; }
+.share-title { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.8rem; font-weight: 600; }
+.share-btns { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+.share-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 100px; color: var(--muted); font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; text-decoration: none; }
+.share-btn:hover { color: var(--ink); border-color: var(--accent-dark); }
+footer { text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: 0.75rem; border-top: 1px solid var(--line); margin-top: 2rem; }
+
+/* ============================================================
+   THEORY APP SPECIFIC
+   ============================================================ */
+.control-group {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .control-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .control-row:last-child {
+    margin-bottom: 0;
+  }
+  .control-row label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-width: 80px;
+  }
+  .nitro-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nitro-wrap select {
+    font-size: 1rem;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    cursor: pointer;
+  }
+  .traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+  }
+  .trait {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #fffbe6;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.35rem 0.6rem;
+  }
+  .trait-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+    width: 1.5rem;
+    text-align: center;
+  }
+  .trait select {
+    font-size: 0.95rem;
+    padding: 0.3rem 0.4rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    cursor: pointer;
+    width: 56px;
+  }
+  .run-mid-row, .thunder-strong-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  .run-mid-item, .thunder-strong-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #e8f4fd;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+  }
+  .thunder-strong-item {
+    background: #f3e5f5;
+  }
+  .run-mid-item label, .thunder-strong-item label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .run-mid-item select, .thunder-strong-item select {
+    font-size: 0.95rem;
+    padding: 0.3rem 0.4rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    cursor: pointer;
+    width: 56px;
+  }
+  .btn-calc {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--accent);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+  .btn-calc:hover {
+    opacity: 0.9;
+  }
+  .btn-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: #e9ecef;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  .btn-reset:hover {
+    background: #dee2e6;
+  }
+  .result-box {
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .result-box .val {
+    color: #c55a5a;
+    font-size: 1.4rem;
+    margin: 0 0.2rem;
+  }
+  .result-box .sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 0.4rem;
+  }
+  .note {
+    margin-top: 1.25rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+  }
+  .note strong {
+    color: var(--ink);
+  }
+  .reset-area {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  /* Pedigree section */
+  .pedigree-wrapper {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .pedigree-col {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .pedigree-header {
+    padding: 0.6rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  .pedigree-header.sire {
+    background: var(--sire-bg);
+  }
+  .pedigree-header.dam {
+    background: var(--dam-bg);
+  }
+  .pedigree-row {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.9rem;
+    min-height: 36px;
+    position: relative;
+  }
+  .pedigree-row:last-child {
+    border-bottom: none;
+  }
+  .side-bar {
+    width: 6px;
+    min-height: 36px;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+  .side-bar.blue {
+    background: var(--bar-blue);
+  }
+  .side-bar.red {
+    background: var(--bar-red);
+  }
+  .pedigree-row .relation {
+    width: 72px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+    flex-shrink: 0;
+    padding-left: 0.3rem;
+  }
+  .pedigree-row .row-num {
+    width: 28px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .pedigree-row .spst-selects {
+    display: flex;
+    gap: 0.4rem;
+    margin-left: auto;
+    padding-right: 0.6rem;
+  }
+  .pedigree-row .spst-selects label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .pedigree-row .spst-selects select {
+    font-size: 0.85rem;
+    padding: 0.15rem 0.3rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    cursor: pointer;
+    width: 52px;
+  }
+  .pedigree-row.green {
+    background: var(--row-green);
+  }
+  .pedigree-row.yellow {
+    background: var(--row-yellow);
+  }
+  .pedigree-row.half {
+    background: linear-gradient(to right, var(--row-yellow) 50%, var(--row-green) 50%);
+  }
+  .calc-area {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 640px) {
+    .pedigree-wrapper {
+      flex-direction: column;
+    }
+  }
+/* ============================================================
+   PEDIGREE APP SPECIFIC
+   ============================================================ */
+#app-pedigree .container { max-width: 1200px; }
+#app-pedigree header { text-align: center; margin-bottom: 1.5rem; padding-top: 0.5rem; }
+#app-pedigree h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; color: var(--ped-header-bg); letter-spacing: -0.02em; }
+[data-theme="dark"] #app-pedigree h1 { color: #60a5fa; }
+#app-pedigree .subtitle { color: var(--muted); font-size: 0.95rem; margin-top: 0.3rem; }
+#app-pedigree .card { padding: 1.25rem; }
+#app-pedigree .controls { display: flex; gap: 0.6rem; margin-bottom: 1rem; flex-wrap: wrap; }
+#app-pedigree button.ped-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  background: var(--surface);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  color: var(--ink);
+}
+#app-pedigree button.ped-btn:hover { background: var(--surface-2); border-color: #9ca3af; transform: translateY(-1px); }
+#app-pedigree button.ped-btn:active { transform: translateY(0); }
+#app-pedigree button.ped-btn.primary {
+  background: var(--ped-header-bg); color: #fff; border-color: var(--ped-header-bg);
+}
+#app-pedigree button.ped-btn.primary:hover { background: #1e40af; }
+#app-pedigree button.ped-btn.bell-btn {
+  background: #fef3c7; border-color: var(--ped-bell); color: #92400e;
+}
+[data-theme="dark"] #app-pedigree button.ped-btn.bell-btn { background: rgba(245,158,11,0.15); color: #fbbf24; }
+#app-pedigree button.ped-btn.charm-btn {
+  background: #ede9fe; border-color: var(--ped-charm); color: #5b21b6;
+}
+[data-theme="dark"] #app-pedigree button.ped-btn.charm-btn { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+#app-pedigree button.ped-btn.danger {
+  background: #fee2e2; border-color: #ef4444; color: #991b1b;
+}
+[data-theme="dark"] #app-pedigree button.ped-btn.danger { background: rgba(239,68,68,0.15); color: #f87171; }
+
+#app-pedigree .savecode-section { margin-top: 0.8rem; }
+#app-pedigree .savecode-label {
+  font-size: 0.85rem; font-weight: 700; color: var(--ink); margin-bottom: 0.35rem; display: block;
+}
+#app-pedigree .savecode-hint {
+  font-size: 0.78rem; color: var(--muted); margin-bottom: 0.4rem;
+}
+#app-pedigree textarea.savecode {
+  width: 100%; min-height: 80px; padding: 0.6rem 0.8rem;
+  border: 2px solid #d1d5db; border-radius: 8px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem; line-height: 1.4; resize: vertical; outline: none;
+  background: var(--surface); color: var(--ink);
+}
+#app-pedigree textarea.savecode:focus { border-color: var(--ped-header-bg); }
+#app-pedigree textarea.savecode[readonly] { background: var(--surface-2); color: var(--ink); }
+#app-pedigree .savecode-row { display: flex; gap: 0.5rem; margin-top: 0.4rem; flex-wrap: wrap; }
+
+#app-pedigree .pedigree-wrap {
+  background: var(--surface); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 1.25rem; overflow-x: auto;
+}
+#app-pedigree .horse-header {
+  background: linear-gradient(135deg, var(--ped-header-bg), #2563eb);
+  color: #fff; text-align: center; font-size: clamp(1.1rem, 3vw, 1.4rem);
+  font-weight: 700; padding: 0.9rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  margin: -1.25rem -1.25rem 1rem -1.25rem;
+  width: calc(100% + 2.5rem); letter-spacing: 0.05em;
+}
+#app-pedigree #pedigreeTable {
+  width: 100%; border-collapse: separate; border-spacing: 3px; min-width: 900px;
+}
+#app-pedigree #pedigreeTable td {
+  padding: 0.35rem 0.4rem; text-align: left; border-radius: 8px;
+  vertical-align: middle; transition: all 0.15s;
+  border: 2px solid transparent; position: relative;
+  font-feature-settings: "palt"; min-width: 140px;
+}
+#app-pedigree #pedigreeTable td:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.06); }
+#app-pedigree #pedigreeTable td.gen1 { font-weight: 700; font-size: 0.9rem; }
+#app-pedigree #pedigreeTable td.gen2 { font-size: 0.86rem; }
+#app-pedigree #pedigreeTable td.gen3 { font-size: 0.82rem; }
+#app-pedigree #pedigreeTable td.gen4 { font-size: 0.78rem; }
+#app-pedigree #pedigreeTable td.gen5 { font-size: 0.75rem; }
+#app-pedigree #pedigreeTable td.sire { background: var(--ped-sire-bg); border-color: var(--ped-sire-bg); }
+#app-pedigree #pedigreeTable td.dam { background: var(--ped-dam-bg); border-color: var(--ped-dam-bg); }
+#app-pedigree #pedigreeTable td.under { background: var(--ped-under-bg) !important; border-color: var(--ped-under) !important; }
+#app-pedigree #pedigreeTable td.complete { background: var(--ped-complete-bg) !important; border-color: var(--ped-complete) !important; }
+
+#app-pedigree .cell-name {
+  display: block; width: 100%; padding: 0.25rem 0.35rem;
+  border: 1px solid transparent; border-radius: 5px;
+  background: rgba(255,255,255,0.6); font-family: inherit;
+  font-size: inherit; font-weight: inherit; color: inherit;
+  outline: none; min-height: 1.6em; line-height: 1.4; word-break: break-all;
+}
+[data-theme="dark"] #app-pedigree .cell-name { background: rgba(15,23,42,0.4); }
+#app-pedigree .cell-name:hover { border-color: #9ca3af; }
+#app-pedigree .cell-name:focus { border-color: #2563eb; background: var(--surface); }
+
+#app-pedigree .cell-row {
+  display: flex; align-items: center; gap: 0.35rem; margin-top: 0.25rem; flex-wrap: wrap;
+}
+#app-pedigree .cell-row label { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
+#app-pedigree .cell-row input[type="number"] {
+  width: 50px; padding: 0.2rem 0.1rem; border: 1px solid #d1d5db;
+  border-radius: 5px; font-family: inherit; font-size: 0.72rem;
+  text-align: center; outline: none; background: var(--surface); color: var(--ink);
+}
+#app-pedigree .cell-row input[type="number"]:focus { border-color: #2563eb; }
+#app-pedigree .cell-row .readout {
+  font-size: 0.85rem; font-weight: 700; color: var(--ped-complete);
+  min-width: 28px; text-align: center;
+}
+#app-pedigree .check-row {
+  display: flex; align-items: center; gap: 0.7rem; margin-top: 0.25rem;
+}
+#app-pedigree .check-row label {
+  font-size: 0.75rem; color: var(--ink); cursor: pointer; user-select: none;
+  display: flex; align-items: center; gap: 0.2rem;
+}
+#app-pedigree .check-row input[type="checkbox"] {
+  width: 14px; height: 14px; accent-color: var(--ped-bell); cursor: pointer;
+}
+#app-pedigree .check-row label:last-child input[type="checkbox"] { accent-color: var(--ped-charm); }
+
+#app-pedigree .legend {
+  display: flex; gap: 1.1rem; margin-top: 1rem;
+  font-size: 0.8rem; color: var(--muted); flex-wrap: wrap;
+}
+#app-pedigree .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+#app-pedigree .dot { width: 14px; height: 14px; border-radius: 4px; }
+#app-pedigree .footer-note {
+  text-align: center; color: var(--muted); font-size: 0.8rem;
+  margin-top: 1.5rem; margin-bottom: 2rem;
+}
+#app-pedigree .migrate-banner {
+  background: #fef3c7; border: 1px solid var(--ped-bell); border-radius: 8px;
+  padding: 0.8rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #92400e; display: none;
+}
+[data-theme="dark"] #app-pedigree .migrate-banner { background: rgba(245,158,11,0.12); color: #fbbf24; }
+#app-pedigree .migrate-banner.show { display: block; }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .btn-row { flex-direction: column; }
+  .btn-row .btn { width: 100%; }
+  .mode-selector { flex-direction: column; }
+  .pedigree-wrapper { flex-direction: column; }
+  .app-selector-grid { grid-template-columns: 1fr; }
+  #app-pedigree #pedigreeTable td { padding: 0.3rem 0.3rem; min-width: 120px; }
+  #app-pedigree .horse-header { margin: -0.75rem -0.75rem 0.75rem -0.75rem; width: calc(100% + 1.5rem); }
+  #app-pedigree .pedigree-wrap { padding: 0.75rem; }
+  #app-pedigree .cell-row input[type="number"] { width: 42px; font-size: 0.68rem; }
+}
+@media print {
+  body { background: #fff; }
+  .no-print { display: none; }
+  #app-pedigree .card, #app-pedigree .pedigree-wrap { box-shadow: none; border: 1px solid #e5e7eb; }
+  #app-pedigree .cell-name, #app-pedigree .cell-row input { border: 1px solid #d1d5db; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="switchApp('landing')" style="cursor:pointer;">🏇 ダビマス総合サポートツール　サポマス</div>
+    <div class="nav-right">
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="nav-menu" id="navMenu">
+      <button class="nav-menu-item active" id="menu-landing" onclick="switchApp('landing')">
+        <span>🏠</span> アプリ選択
+      </button>
+      <div class="nav-menu-divider"></div>
+      <button class="nav-menu-item" id="menu-measure" onclick="switchApp('measure')">
+        <span>📊</span> スピスタ測定
+      </button>
+      <button class="nav-menu-item" id="menu-theory" onclick="switchApp('theory')">
+        <span>🧮</span> 理論値計算
+      </button>
+      <button class="nav-menu-item" id="menu-pedigree" onclick="switchApp('pedigree')">
+        <span>🧬</span> 配合進捗管理
+      </button>
+      <div class="nav-menu-divider"></div>
+      <div class="theme-toggle-row">
+        <span>🎨 テー</span>
+        <div class="theme-toggle-wrap">
+          <span class="theme-label-light">☀️</span>
+          <label class="theme-switch">
+            <input type="checkbox" id="navThemeToggle" onchange="toggleTheme()">
+            <span class="theme-slider"></span>
+          </label>
+          <span class="theme-label-dark">🌙</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Landing ===== -->
+<div id="app-landing" class="app-container active">
+  <div class="app-selector">
+    <div class="app-selector-grid">
+      <div class="app-card" onclick="switchApp('measure')">
+        <div class="app-card-icon">📊</div>
+        <div class="app-card-title">スピスタ測定</div>
+        <div class="app-card-desc">成長型と時期を考して、調教後の表示値から真の100%スピードを推定。データ照合・編集も可能。</div>
+      </div>
+      <div class="app-card" onclick="switchApp('theory')">
+        <div class="app-card-icon">🧮</div>
+        <div class="app-card-title">理論値計算</div>
+        <div class="app-card-desc">短距離ニトロ、至高ベース、走中ニトロ、雷強ニトロ、血統理論値を加味してスピード・スタミナを算出。</div>
+      </div>
+      <div class="app-card" onclick="switchApp('pedigree')">
+        <div class="app-card-icon">🧬</div>
+        <div class="app-card-title">配合進捗管理</div>
+        <div class="app-card-desc">5代前までの配合表を管理。持っている数を入力すると自動で生産能力を計算。セーブコードで保存可能。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== App 1: スピスタ測定 ===== -->
+<div id="app-measure" class="app-container">
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">🏇 ダービースタリオン 非公式ツール</div>
+    <h1>スピード・スタミナ<br><span>測定アプリ v4</span></h1>
+    <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem;letter-spacing:0.05em;">made by 籾殻牧場、sakanachat</div>
+    <p>成長型と時期を考慮して、調教後の表示値から真の100%スピードを推定。ブラウザだけで動作。</p>
+    <div class="hero-btns">
+      <a href="#calc" class="btn btn-primary">🚀 計算を始める</a>
+      <a href="#data" class="btn btn-secondary">📋 データを確認</a>
+    </div>
+  </div>
+</section>
+
+<section id="calc" class="section">
+  <div class="container">
+    <div class="section-title"><span class="icon">⚡</span> スピード推定計算</div>
+    <div class="section-desc">計算モードを選んで、真の100%スピードを推定します</div>
+
+    <div class="card animate-in">
+      <div class="mode-selector">
+        <button class="mode-btn active" id="mode-current" onclick="switchMode('current')">📊 現在値から計算</button>
+        <button class="mode-btn" id="mode-initial" onclick="switchMode('initial')">🏇 スピード初期値判定</button>
+        <button class="mode-btn" id="mode-stamina" onclick="switchMode('stamina')">💪 スタミナ初期値判定</button>
+      </div>
+
+      <!-- === 現在値から計算 === -->
+      <div id="mode-panel-current" class="mode-panel active">
+        <div style="margin-bottom:1.2rem;">
+          <label style="font-size:0.8rem;color:var(--muted);font-weight:600;display:block;margin-bottom:0.4rem;">📊 調教後の表示スピード値</label>
+          <div class="input-toggle">
+            <button class="input-toggle-btn active" id="curr-toggle-num" onclick="toggleCurrInput('num')">数値入力</button>
+            <button class="input-toggle-btn" id="curr-toggle-rank" onclick="toggleCurrInput('rank')">ランク入力 (ABCDE)</button>
+          </div>
+          <div id="curr-input-num">
+            <input type="number" id="currSpeedNum" placeholder="例: 84" min="1" max="200" style="width:100%;padding:0.8rem 1rem;background:rgba(30,41,59,0.8);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink);font-size:1rem;font-family:'Roboto Mono',monospace;">
+          </div>
+          <div id="curr-input-rank" style="display:none;">
+            <select id="currSpeedRank" style="width:100%;padding:0.8rem 1rem;background:rgba(30,41,59,0.8);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink);font-size:1rem;font-family:'Roboto Mono',monospace;appearance:none;">
+              <option value="">選択</option>
+              <option value="A">Aランク (100以上)</option>
+              <option value="B">Bランク (85〜99)</option>
+              <option value="C">Cランク (70〜84)</option>
+              <option value="D">Dランク (55〜69)</option>
+              <option value="E">Eランク (55未満)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:1.2rem;">
+          <label style="font-size:0.8rem;color:var(--muted);font-weight:600;display:block;margin-bottom:0.4rem;">🏁 この%段階内のレース出走回数</label>
+          <input type="number" id="currRaceCount" placeholder="例: 3（0〜20）" min="0" max="50" value="0" style="width:100%;padding:0.85rem 1rem;background:linear-gradient(145deg, rgba(30,41,59,0.9), rgba(15,23,42,0.7));border:1px solid rgba(148,163,184,0.15);border-radius:var(--radius-sm);color:var(--ink);font-size:1rem;font-family:'Roboto Mono',monospace;">
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;">※レース1回につきスピード+2されるため、入力値から「回数×2」を自動で引いて計算します。</div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>成長型</label>
+            <select id="currGrowthType">
+              <option value="">選択してください</option>
+              <option value="1">成長型 1 (初期79-70%)</option>
+              <option value="2">成長型 2 (初期69-60%)</option>
+              <option value="3">成長型 3 (初期59-50%)</option>
+              <option value="4">成長型 4 (初期49-40%)</option>
+              <option value="5">成長型 5 (初期39-30%)</option>
+              <option value="6">成長型 6 (初期29-20%)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>年齢</label>
+            <select id="currAge">
+              <option value="1">1歳</option>
+              <option value="2">2歳</option>
+              <option value="3" selected>3歳</option>
+              <option value="4">4歳</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>月</label>
+            <select id="currMonth">
+              <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option>
+              <option value="4">4月</option><option value="5">5月</option><option value="6">6月</option>
+              <option value="7">7月</option><option value="8">8月</option><option value="9">9月</option>
+              <option value="10">10月</option><option value="11">11月</option><option value="12">12月</option>
+            </select>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="calculateCurrent()">計算する</button>
+          <button class="btn btn-secondary" onclick="clearCurrent()">クリア</button>
+        </div>
+        <div id="currResultBox" class="result-box">
+          <div class="result-label">推定 真の100%スピード値（最小値〜最大値）</div>
+          <div class="result-value" id="currTrueSpeed">--</div>
+          <div class="result-detail">
+            使用蓋率: <span id="currCapRate">--</span>% | 計算式: <span id="currFormula">--</span>
+          </div>
+        </div>
+        <div class="note">※「現在値から計算」は表示スピードからレース出走回数×2を引いた補正後の値を蓋率で割って真スピードを算出します。ランク入力時はランク範囲の最小値・最大値で別々に計算します。</div>
+      </div>
+
+      <!-- === スピード初期値判定 === -->
+      <div id="mode-panel-initial" class="mode-panel">
+        <div style="margin-bottom:1.2rem;">
+          <label style="font-size:0.8rem;color:var(--muted);font-weight:600;display:block;margin-bottom:0.4rem;">🏇 スピード初期値</label>
+          <div class="input-toggle">
+            <button class="input-toggle-btn active" id="spd-toggle-num" onclick="toggleSpdInput('num')">数値入力</button>
+            <button class="input-toggle-btn" id="spd-toggle-rank" onclick="toggleSpdInput('rank')">ランク入力 (ABCDE)</button>
+          </div>
+          <div id="spd-input-num">
+            <input type="number" id="initSpdNum" placeholder="例: 42" min="1" max="200" style="width:100%;padding:0.8rem 1rem;background:rgba(30,41,59,0.8);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink);font-size:1rem;font-family:'Roboto Mono',monospace;">
+          </div>
+          <div id="spd-input-rank" style="display:none;">
+            <select id="initSpdRank" style="width:100%;padding:0.8rem 1rem;background:rgba(30,41,59,0.8);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink);font-size:1rem;font-family:'Roboto Mono',monospace;appearance:none;">
+              <option value="">選択</option>
+              <option value="A">Aランク (100以上)</option>
+              <option value="B">Bランク (85〜99)</option>
+              <option value="C">Cランク (70〜84)</option>
+              <option value="D">Dランク (55〜69)</option>
+              <option value="E">Eランク (55未満)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:1.2rem;">
+          <label style="font-size:0.8rem;color:var(--muted);font-weight:600;display:block;margin-bottom:0.4rem;">📋 成長型（任意・既知の場合）</label>
+          <select id="initGrowthType" style="width:100%;padding:0.8rem 1rem;background:rgba(30,41,59,0.8);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink);font-size:1rem;font-family:'Roboto Mono',monospace;appearance:none;">
+            <option value="">自動判定（未入力）</option>
+            <option value="1">成長型 1 (初期79-70%)</option>
+            <option value="2">成長型 2 (初期69-60%)</option>
+            <option value="3">成長型 3 (初期59-50%)</option>
+            <option value="4">成長型 4 (初期49-40%)</option>
+            <option value="5">成長型 5 (初期39-30%)</option>
+            <option value="6">成長型 6 (初期29-20%)</option>
+          </select>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;">※既知の場合は選択すると、その成長型で計算します。未選択時は自動判定します。</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-purple" onclick="calculateInitial()">🔮 判定して計算</button>
+          <button class="btn btn-secondary" onclick="clearInitial()">クリア</button>
+        </div>
+
+        <div id="initResultBox" style="display:none;margin-top:1.5rem;">
+          <div class="result-card" style="margin-bottom:1rem;">
+            <div class="result-card-title">🏇 スピード判定結果</div>
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+              <div>
+                <div style="font-size:0.75rem;color:var(--muted);">推定成長型</div>
+                <div id="spdGrowthResult" style="font-family:'Roboto Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--accent);">--</div>
+              </div>
+              <div>
+                <div style="font-size:0.75rem;color:var(--muted);">ランク</div>
+                <div id="spdRankResult">--</div>
+              </div>
+              <div>
+                <div style="font-size:0.75rem;color:var(--muted);">真スピード（推定）</div>
+                <div id="spdTrueResult" style="font-family:'Roboto Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--ink);">--</div>
+              </div>
+            </div>
+            <div id="spdRangeResult" style="margin-top:0.6rem;font-size:0.8rem;color:var(--muted);"></div>
+          </div>
+
+          <div id="initDetailTableWrap" style="display:none;">
+            <div class="result-card-title" style="margin-bottom:0.6rem;">📊 全成長型での逆算比較</div>
+            <div class="data-table-wrap">
+              <table class="data-table" id="initDetailTable">
+                <thead><tr><th>成長型</th><th>初期値%</th><th>真スピード範囲</th><th>ラベル</th><th>一致</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:1rem;">※スピード初期値から各成長型の初期値パーセンテージ（型1:79-70%、型2:69-60%…）を使って真スピードの範囲を逆算します。最小真スピード=入力値÷最大%、最大真スピード=入力値÷最小%。ABCDEランク入力時はランク範囲の最小値・最大値で別々に計算し、両方で共通する範囲がある成長型を「確定」、片方のみの場合を「可能性あり」と表示ます。</div>
+      </div>
+
+      <!-- === スタミナ初期値判定 === -->
+      <div id="mode-panel-stamina" class="mode-panel">
+        <div style="margin-bottom:1.2rem;">
+          <label style="font-size:0.8rem;color:var(--muted);font-weight:600;display:block;margin-bottom:0.4rem;">💪 スタミナ初期値</label>
+          <div class="input-toggle">
+            <button class="input-toggle-btn active" id="sta-toggle-num" onclick="toggleStaInput('num')">数値入力</button>
+            <button class="input-toggle-btn" id="sta-toggle-rank" onclick="toggleStaInput('rank')">ランク入力 (ABCDE)</button>
+          </div>
+          <div id="sta-input-num">
+            <input type="number" id="initStaNum" placeholder="例: 38" min="1" max="200" style="width:100%;padding:0.8rem 1rem;background:rgba(30,41,59,0.8);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink);font-size:1rem;font-family:'Roboto Mono',monospace;">
+          </div>
+          <div id="sta-input-rank" style="display:none;">
+            <select id="initStaRank" style="width:100%;padding:0.8rem 1rem;background:rgba(30,41,59,0.8);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink);font-size:1rem;font-family:'Roboto Mono',monospace;appearance:none;">
+              <option value="">選択</option>
+              <option value="A">Aランク (100以上)</option>
+              <option value="B">Bランク (85〜99)</option>
+              <option value="C">Cランク (70〜84)</option>
+              <option value="D">Dランク (55〜69)</option>
+              <option value="E">Eランク (55未満)</option>
+            </select>
+          </div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;">※スタミナは初期値でしか判別できません。入力値の2倍が最大値になります。</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-cyan" onclick="calculateStamina()">💪 判定して計算</button>
+          <button class="btn btn-secondary" onclick="clearStamina()">クリア</button>
+        </div>
+
+        <div id="staminaResultBox" style="display:none;margin-top:1.5rem;">
+          <div class="result-card" style="background:rgba(6,182,212,0.05);border-color:rgba(6,182,212,0.2);">
+            <div class="result-card-title" style="color:var(--cyan);">💪 スタミナ判定結果</div>
+            <div class="result-grid" style="margin-top:0;gap:0.8rem;">
+              <div>
+                <div style="font-size:0.75rem;color:var(--muted);">最小値（=初期値）</div>
+                <div id="staResultMin" style="font-family:'Roboto Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--ink);">--</div>
+                <div id="staResultMinRank" style="margin-top:0.2rem;">--</div>
+              </div>
+              <div>
+                <div style="font-size:0.75rem;color:var(--muted);">最大値（=最小値+1）</div>
+                <div id="staResultMax" style="font-family:'Roboto Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--cyan);">--</div>
+                <div id="staResultMaxRank" style="margin-top:0.2rem;">--</div>
+              </div>
+              <div>
+                <div style="font-size:0.75rem;color:var(--muted);">ランク範囲</div>
+                <div id="staResultRange" style="font-family:'Roboto Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--ink);margin-top:0.3rem;">--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:1rem;">※スタミナは初期値でしか判別できません。値指定の場合は最小値=入力値、最大値=最小値+1。ABCDEランク入力時は最小値=ランク最小値、最大値=ランク最大値+1として計算します。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="data" class="section">
+  <div class="container">
+    <div class="section-title"><span class="icon">📋</span> データ照合・編集</div>
+    <div class="section-desc">蓋テーブルを確認・編集できます。セルをクリックして数値を変更可能</div>
+    <div class="card animate-in">
+      <div class="data-table-wrap">
+        <table class="data-table" id="capTable"></table>
+      </div>
+      <div class="note important"><strong>重要:</strong> 空白セルは「蓋率100%（真のスピードがそのまま表示）」を意味します。データは画像読み取り値を基準としています。</div>
+    </div>
+    <div class="card animate-in">
+      <div class="section-title" style="font-size:1.1rem;margin-bottom:0.8rem;"><span class="icon">📅</span> 成長型ごとの最速ピークアウト時期</div>
+      <div class="data-table-wrap">
+        <table class="data-table" id="xMonthTable"></table>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section class="share-section">
+  <div class="container">
+    <div class="share-title">友達にこのツールを共有</div>
+    <div class="share-btns">
+      <button class="share-btn" onclick="copyUrl()">🔗 URLをコピー</button>
+      <button class="share-btn" onclick="shareX()">𝕏 Xでポスト</button>
+      <button class="share-btn" onclick="shareLine()">💬 LINEで送る</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>データ元: ダビマス非公式攻略Wiki / よいどれ式測定表</div>
+  <div style="margin-top:0.3rem;">※2023年10月更新以前のデータを基準としています。</div>
+  <div style="margin-top:0.8rem;color:var(--muted);">v4 | 単体HTMLファイル | オフライン動作対応</div>
+</footer>
+
+<script>
+// ============================================================
+// THEME SYSTEM
+// ============================================================
+const THEME_KEY = "dabimas_theme";
+
+function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isDark = saved ? saved === "dark" : prefersDark;
+  setTheme(isDark ? "dark" : "light", false);
+}
+
+function setTheme(theme, save = true) {
+  const isDark = theme === "dark";
+  document.documentElement.setAttribute("data-theme", theme);
+  const toggle = document.getElementById("navThemeToggle");
+  if (toggle) toggle.checked = isDark;
+  document.getElementById("themeColor").setAttribute("content", isDark ? "#0f172a" : "#f8f9fa");
+  if (save) localStorage.setItem(THEME_KEY, theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme") || "light";
+  setTheme(current === "dark" ? "light" : "dark");
+}
+
+if (window.matchMedia) {
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+    if (!localStorage.getItem(THEME_KEY)) setTheme(e.matches ? "dark" : "light", false);
+  });
+}
+
+// ============================================================
+// APP SWITCHING & MENU
+// ============================================================
+function toggleMenu() {
+  const menu = document.getElementById("navMenu");
+  const btn = document.getElementById("hamburger");
+  menu.classList.toggle("open");
+  btn.classList.toggle("active");
+}
+function switchApp(appId) {
+  document.querySelectorAll(".app-container").forEach(el => el.classList.remove("active"));
+  document.getElementById("app-" + appId).classList.add("active");
+  document.querySelectorAll(".nav-menu-item").forEach(el => el.classList.remove("active"));
+  const menuItem = document.getElementById("menu-" + appId);
+  if (menuItem) menuItem.classList.add("active");
+  document.getElementById("navMenu").classList.remove("open");
+  document.getElementById("hamburger").classList.remove("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+document.addEventListener("click", function(e) {
+  const menu = document.getElementById("navMenu");
+  const btn = document.getElementById("hamburger");
+  if (!menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove("open");
+    btn.classList.remove("active");
+  }
+});
+
+
+const DEFAULT_PERIOD_LABELS = [
+  "1歳9-10月","1歳11-12月","2歳1-2月","2歳3-4月","2歳5-6月",
+  "2歳7-8月","2歳9-10月","2歳11-12月","3歳1-2月","3歳3-4月",
+  "3歳5-6月","3歳7-8月","3歳9-10月","3歳11-12月","4歳1-2月",
+  "4歳3-4月","4歳5-6月","4歳7-8月","4歳9-10月","4歳11-12月"
+];
+const DEFAULT_SPEED_CAP_TABLE = {
+  1: [100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100],
+  2: [ 90, 90, 90, 90, 90, 94, 98,100,100,100,100,100,100,100,100,100,100,100,100,100],
+  3: [ 80, 80, 80, 80, 80, 84, 88, 92, 96,100,100,100,100,100,100,100,100,100,100,100],
+  4: [ 70, 70, 70, 70, 70, 74, 78, 82, 86, 90, 94, 98,100,100,100,100,100,100,100,100],
+  5: [ 50, 50, 50, 50, 50, 52, 54, 56, 60, 64, 68, 72, 80, 88, 92, 96,100,100,100,100],
+  6: [ 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 52, 56, 60, 68, 76, 84, 92, 96,100]
+};
+const GROWTH_MASTER = [
+  { id: 1, initialMin: 70, initialMax: 79, label: "初期値79-70%" },
+  { id: 2, initialMin: 60, initialMax: 69, label: "初期値69-60%" },
+  { id: 3, initialMin: 50, initialMax: 59, label: "初期値59-50%" },
+  { id: 4, initialMin: 40, initialMax: 49, label: "初期値49-40%" },
+  { id: 5, initialMin: 30, initialMax: 39, label: "初期値39-30%" },
+  { id: 6, initialMin: 20, initialMax: 29, label: "初期値29-20%" }
+];
+const X_MONTH_TABLE = [
+  { x: 0, label: "3歳3月" },
+  { x: 1, label: "3歳7月" },
+  { x: 2, label: "4歳5月" },
+  { x: 3, label: "5歳3月" },
+  { x: 4, label: "6歳1月" },
+  { x: 5, label: "6歳7月" }
+];
+const RANK_DEF = {
+  A: { min: 100, max: 125, label: "A", desc: "100以上" },
+  B: { min: 85,  max: 99,  label: "B", desc: "85〜99" },
+  C: { min: 70,  max: 84,  label: "C", desc: "70〜84" },
+  D: { min: 55,  max: 69,  label: "D", desc: "55〜69" },
+  E: { min: 1,   max: 54,  label: "E", desc: "55未満" }
+};
+
+let SPEED_CAP_TABLE = loadData();
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem("dabimas_cap_table");
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return JSON.parse(JSON.stringify(DEFAULT_SPEED_CAP_TABLE));
+}
+function saveData() {
+  localStorage.setItem("dabimas_cap_table", JSON.stringify(SPEED_CAP_TABLE));
+  const btn = event.target; const orig = btn.textContent;
+  btn.textContent = "✅ 保存完了";
+  setTimeout(() => btn.textContent = orig, 1500);
+}
+function resetData() {
+  if (confirm("本当にデフォルト値に戻しますか？")) {
+    SPEED_CAP_TABLE = JSON.parse(JSON.stringify(DEFAULT_SPEED_CAP_TABLE));
+    renderCapTable();
+    localStorage.removeItem("dabimas_cap_table");
+  }
+}
+function exportData() {
+  const data = JSON.stringify(SPEED_CAP_TABLE, null, 2);
+  const blob = new Blob([data], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "dabimas_cap_table.json"; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function getPeriodIndex(age, month) {
+  if (age === 1) {
+    if (month === 9 || month === 10) return 0;
+    if (month === 11 || month === 12) return 1;
+    return -1;
+  }
+  if (age === 2) {
+    if (month === 1 || month === 2) return 2;
+    if (month === 3 || month === 4) return 3;
+    if (month === 5 || month === 6) return 4;
+    if (month === 7 || month === 8) return 5;
+    if (month === 9 || month === 10) return 6;
+    if (month === 11 || month === 12) return 7;
+    return -1;
+  }
+  if (age === 3) {
+    if (month === 1 || month === 2) return 8;
+    if (month === 3 || month === 4) return 9;
+    if (month === 5 || month === 6) return 10;
+    if (month === 7 || month === 8) return 11;
+    if (month === 9 || month === 10) return 12;
+    if (month === 11 || month === 12) return 13;
+    return -1;
+  }
+  if (age === 4) {
+    if (month === 1 || month === 2) return 14;
+    if (month === 3 || month === 4) return 15;
+    if (month === 5 || month === 6) return 16;
+    if (month === 7 || month === 8) return 17;
+    if (month === 9 || month === 10) return 18;
+    if (month === 11 || month === 12) return 19;
+    return -1;
+  }
+  return -1;
+}
+function getCapRate(growthType, age, month) {
+  const idx = getPeriodIndex(age, month);
+  if (idx === -1) return null;
+  return SPEED_CAP_TABLE[growthType][idx];
+}
+function getRankFromValue(val) {
+  if (val >= 100) return 'A';
+  if (val >= 85)  return 'B';
+  if (val >= 70)  return 'C';
+  if (val >= 55)  return 'D';
+  return 'E';
+}
+function getRankBadge(rank, size='normal') {
+  const sz = size === 'small' ? 'font-size:0.75rem;padding:0.15rem 0.5rem;' : '';
+  return `<span class="rank-badge rank-${rank}" style="${sz}">${rank}ランク</span>`;
+}
+function getRankRange(rank) {
+  return RANK_DEF[rank] || null;
+}
+
+function switchMode(mode) {
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".mode-panel").forEach(p => p.classList.remove("active"));
+  document.getElementById("mode-" + mode).classList.add("active");
+  document.getElementById("mode-panel-" + mode).classList.add("active");
+}
+
+// --- 現在値モード トグル ---
+function toggleCurrInput(type) {
+  document.getElementById("curr-toggle-num").classList.toggle("active", type === 'num');
+  document.getElementById("curr-toggle-rank").classList.toggle("active", type === 'rank');
+  document.getElementById("curr-input-num").style.display = type === 'num' ? 'block' : 'none';
+  document.getElementById("curr-input-rank").style.display = type === 'rank' ? 'block' : 'none';
+}
+
+// --- 初期値モード トグル ---
+function toggleSpdInput(type) {
+  document.getElementById("spd-toggle-num").classList.toggle("active", type === 'num');
+  document.getElementById("spd-toggle-rank").classList.toggle("active", type === 'rank');
+  document.getElementById("spd-input-num").style.display = type === 'num' ? 'block' : 'none';
+  document.getElementById("spd-input-rank").style.display = type === 'rank' ? 'block' : 'none';
+}
+function toggleStaInput(type) {
+  document.getElementById("sta-toggle-num").classList.toggle("active", type === 'num');
+  document.getElementById("sta-toggle-rank").classList.toggle("active", type === 'rank');
+  document.getElementById("sta-input-num").style.display = type === 'num' ? 'block' : 'none';
+  document.getElementById("sta-input-rank").style.display = type === 'rank' ? 'block' : 'none';
+}
+
+// --- 現在値から計算 ---
+function calculateCurrent() {
+  const isNum = document.getElementById("curr-toggle-num").classList.contains("active");
+  let spdMin, spdMax, formulaText;
+  if (isNum) {
+    const v = parseFloat(document.getElementById("currSpeedNum").value);
+    if (!v) { alert("スピード値を入力してください"); return; }
+    spdMin = v; spdMax = v;
+    formulaText = `${v}`;
+  } else {
+    const r = document.getElementById("currSpeedRank").value;
+    if (!r) { alert("スピードランクを選択してください"); return; }
+    const range = getRankRange(r);
+    spdMin = range.min; spdMax = range.max;
+    formulaText = `${range.min}〜${range.max}（${RANK_DEF[r].desc}）`;
+  }
+
+  // レース出走回数による補正
+  const raceCount = parseInt(document.getElementById("currRaceCount").value) || 0;
+  const raceBonus = raceCount * 2;
+  const adjustedMin = Math.max(0, spdMin - raceBonus);
+  const adjustedMax = Math.max(0, spdMax - raceBonus);
+
+  const growthType = parseInt(document.getElementById("currGrowthType").value);
+  const age = parseInt(document.getElementById("currAge").value);
+  const month = parseInt(document.getElementById("currMonth").value);
+  if (!growthType) { alert("成長型を選択してください"); return; }
+  const capRate = getCapRate(growthType, age, month);
+  if (capRate === null) { alert("その年齢・月のデータはありません"); return; }
+
+  const trueMin = Math.round(adjustedMin / (capRate / 100));
+  const trueMax = Math.round(adjustedMax / (capRate / 100));
+
+  let formulaHtml = `入力: ${formulaText}`;
+  if (raceCount > 0) {
+    formulaHtml += ` → レース補正: ${spdMin} − ${raceBonus} = ${adjustedMin}`;
+    if (spdMin !== spdMax) formulaHtml += ` / ${spdMax} − ${raceBonus} = ${adjustedMax}`;
+  }
+  formulaHtml += ` → ÷ ${capRate}%`;
+
+  if (trueMin === trueMax) {
+    document.getElementById("currTrueSpeed").textContent = trueMin;
+    document.getElementById("currFormula").innerHTML = formulaHtml + ` = <strong>${trueMin}</strong>`;
+  } else {
+    document.getElementById("currTrueSpeed").textContent = `${trueMin} 〜 ${trueMax}`;
+    const r1 = getRankFromValue(trueMin);
+    const r2 = getRankFromValue(trueMax);
+    const rankText = r1 === r2 ? `（${r1}ランク確定）` : `（${r1}ランク〜${r2}ランクの可能性）`;
+    document.getElementById("currFormula").innerHTML = formulaHtml + ` = <strong>${trueMin}〜${trueMax}</strong> ${rankText}`;
+  }
+  document.getElementById("currCapRate").textContent = capRate;
+  document.getElementById("currResultBox").classList.add("visible");
+}
+function clearCurrent() {
+  document.getElementById("currSpeedNum").value = "";
+  document.getElementById("currSpeedRank").value = "";
+  document.getElementById("currRaceCount").value = "0";
+  document.getElementById("currGrowthType").value = "";
+  document.getElementById("currResultBox").classList.remove("visible");
+}
+
+// --- スピー初期値判定 ---
+function calculateInitial() {
+  const isSpdNum = document.getElementById("spd-toggle-num").classList.contains("active");
+  const specifiedGrowth = parseInt(document.getElementById("initGrowthType").value) || null;
+
+  let spdInputMin, spdInputMax, spdDisplay;
+  if (isSpdNum) {
+    const v = parseFloat(document.getElementById("initSpdNum").value);
+    if (!v) { alert("スピード初期値を入力してください"); return; }
+    spdInputMin = v; spdInputMax = v; spdDisplay = `${v}`;
+  } else {
+    const r = document.getElementById("initSpdRank").value;
+    if (!r) { alert("スピードランクを選択してください"); return; }
+    const range = getRankRange(r);
+    spdInputMin = range.min; spdInputMax = range.max; spdDisplay = `${RANK_DEF[r].desc}`;
+  }
+
+  let bestGrowthType, trueSpdMin, trueSpdMax, confidence;
+
+  if (specifiedGrowth) {
+    bestGrowthType = specifiedGrowth;
+    const g = GROWTH_MASTER.find(x => x.id === specifiedGrowth);
+    // 値指定: 最小値=計算値、最大値=最小値+1
+    // ABCDE: 最小値=ランク最小÷最大%最大値=ランク最大÷最小%+1
+    if (isSpdNum) {
+      trueSpdMin = Math.round(spdInputMin / (g.initialMax / 100));
+      trueSpdMax = trueSpdMin + 1;
+    } else {
+      trueSpdMin = Math.round(spdInputMin / (g.initialMax / 100));
+      trueSpdMax = Math.round(spdInputMax / (g.initialMin / 100)) + 1;
+    }
+    confidence = 'specified';
+  } else {
+    const resultsMin = judgeGrowthType(spdInputMin, isSpdNum);
+    const resultsMax = judgeGrowthType(spdInputMax, false);
+    const merged = mergeGrowthResults(resultsMin, resultsMax, isSpdNum);
+    const best = merged[0];
+    bestGrowthType = best ? best.growthType : null;
+    trueSpdMin = best ? best.trueMin : null;
+    trueSpdMax = best ? best.trueMax : null;
+    confidence = best ? best.confidence : 'none';
+  }
+
+  const spdGrowthEl = document.getElementById("spdGrowthResult");
+  if (bestGrowthType) {
+    const confText = confidence === 'specified' ? '指定' : confidence === 'certain' ? '確定' : confidence === 'possible' ? '可能性あり' : '不一致';
+    spdGrowthEl.innerHTML = `成長型 ${bestGrowthType} <span style="font-size:0.9rem;color:var(--muted);">(${confText})</span>`;
+  } else {
+    spdGrowthEl.textContent = "判定不可";
+  }
+
+  if (trueSpdMin !== null && trueSpdMax !== null) {
+    if (trueSpdMin === trueSpdMax) {
+      document.getElementById("spdTrueResult").textContent = trueSpdMin;
+      document.getElementById("spdRankResult").innerHTML = getRankBadge(getRankFromValue(trueSpdMin));
+    } else {
+      document.getElementById("spdTrueResult").textContent = `${trueSpdMin} 〜 ${trueSpdMax}`;
+      const r1 = getRankFromValue(trueSpdMin);
+      const r2 = getRankFromValue(trueSpdMax);
+      const rankText = r1 === r2 ? getRankBadge(r1) : `${getRankBadge(r1)} ${getRankBadge(r2)}`;
+      document.getElementById("spdRankResult").innerHTML = rankText;
+    }
+  }
+  document.getElementById("spdRangeResult").textContent = `入力: ${spdDisplay}`;
+
+  if (!specifiedGrowth) {
+    const resultsMin = judgeGrowthType(spdInputMin, isSpdNum);
+    const resultsMax = judgeGrowthType(spdInputMax, false);
+    renderInitDetailTable(resultsMin, resultsMax, isSpdNum);
+    document.getElementById("initDetailTableWrap").style.display = "block";
+  } else {
+    document.getElementById("initDetailTableWrap").style.display = "none";
+  }
+  document.getElementById("initResultBox").style.display = "block";
+}
+
+// 初期値パーセンテージから真スピードの範囲を逆算
+// isNum=true: 値指定 → 最小値=計算値、最大値=最小値+1
+// isNum=false: ABCDE → 最小値=入力÷最大%、最大値=入力÷最小%+1
+function judgeGrowthType(initSpeed, isNum) {
+  let candidates = [];
+  for (const g of GROWTH_MASTER) {
+    const trueMin = Math.round(initSpeed / (g.initialMax / 100));
+    const trueMax = isNum ? trueMin + 1 : Math.round(initSpeed / (g.initialMin / 100)) + 1;
+    candidates.push({
+      growthType: g.id,
+      trueMin,
+      trueMax,
+      initialRange: `${g.initialMin}-${g.initialMax}%`,
+      label: g.label
+    });
+  }
+  return candidates;
+}
+
+function mergeGrowthResults(resMin, resMax, isNum) {
+  const map = {};
+  resMin.forEach(r => {
+    map[r.growthType] = {
+      growthType: r.growthType,
+      minTrueMin: r.trueMin,
+      minTrueMax: r.trueMax
+    };
+  });
+  resMax.forEach(r => {
+    if (!map[r.growthType]) {
+      map[r.growthType] = {
+        growthType: r.growthType,
+        minTrueMin: null,
+        minTrueMax: null,
+        maxTrueMin: r.trueMin,
+        maxTrueMax: r.trueMax
+      };
+    } else {
+      map[r.growthType].maxTrueMin = r.trueMin;
+      map[r.growthType].maxTrueMax = r.trueMax;
+    }
+  });
+
+  const merged = Object.values(map).map(m => {
+    const hasMin = m.minTrueMin !== null;
+    const hasMax = m.maxTrueMin !== null;
+
+    if (hasMin && hasMax) {
+      // 両方ある場合は範囲の共通部分
+      const overlapMin = Math.max(m.minTrueMin, m.maxTrueMin);
+      const overlapMax = Math.min(m.minTrueMax, m.maxTrueMax);
+      if (overlapMin <= overlapMax) {
+        m.confidence = 'certain';
+        m.trueMin = overlapMin;
+        m.trueMax = overlapMax;
+      } else {
+        m.confidence = 'possible';
+        m.trueMin = m.minTrueMin;
+        m.trueMax = m.minTrueMax;
+      }
+    } else if (hasMin) {
+      m.confidence = 'possible';
+      m.trueMin = m.minTrueMin;
+      m.trueMax = m.minTrueMax;
+    } else if (hasMax) {
+      m.confidence = 'possible';
+      m.trueMin = m.maxTrueMin;
+      m.trueMax = m.maxTrueMax;
+    } else {
+      m.confidence = 'none';
+      m.trueMin = 0; m.trueMax = 0;
+    }
+    return m;
+  });
+
+  merged.sort((a, b) => {
+    const score = { certain: 2, possible: 1, none: 0 };
+    if (score[b.confidence] !== score[a.confidence]) return score[b.confidence] - score[a.confidence];
+    return a.growthType - b.growthType;
+  });
+  return merged;
+}
+
+function renderInitDetailTable(resMin, resMax, isNum) {
+  const tbody = document.querySelector("#initDetailTable tbody");
+  tbody.innerHTML = "";
+  const merged = mergeGrowthResults(resMin, resMax, isNum);
+  merged.forEach(m => {
+    const g = GROWTH_MASTER.find(x => x.id === m.growthType);
+    const confText = m.confidence === 'certain' ? '✅ 確定' : m.confidence === 'possible' ? '△ 可能性' : '❌ 不一致';
+    const confColor = m.confidence === 'certain' ? '#22c55e' : m.confidence === 'possible' ? '#f59e0b' : '#ef4444';
+    const trueSpdText = m.trueMin === m.trueMax ? `${m.trueMin}` : `${m.trueMin}〜${m.trueMax}`;
+    const row = document.createElement("tr");
+    row.innerHTML = `<td><strong>型${m.growthType}</strong></td><td>${g.initialMin}-${g.initialMax}%</td><td>${trueSpdText}</td><td>${g.label}</td><td style="color:${confColor};font-weight:700;">${confText}</td>`;
+    tbody.appendChild(row);
+  });
+}
+function clearInitial() {
+  document.getElementById("initSpdNum").value = "";
+  document.getElementById("initSpdRank").value = "";
+  document.getElementById("initGrowthType").value = "";
+  document.getElementById("initResultBox").style.display = "none";
+  document.getElementById("initDetailTableWrap").style.display = "none";
+}
+
+// --- スタミナ初期値判定 ---
+function calculateStamina() {
+  const isStaNum = document.getElementById("sta-toggle-num").classList.contains("active");
+  let staMin, staMax;
+  if (isStaNum) {
+    const v = parseFloat(document.getElementById("initStaNum").value);
+    if (!v) { alert("スタミナ初期値を入力してください"); return; }
+    staMin = v;
+    // 値指定: 最小値=入力値、最大値=最小値+1
+    staMax = staMin + 1;
+  } else {
+    const r = document.getElementById("initStaRank").value;
+    if (!r) { alert("スタミナランクを選択してください"); return; }
+    const range = getRankRange(r);
+    // ABCDE: 最小値=ランク最小、最大値=ランク最大+1
+    staMin = range.min;
+    staMax = range.max + 1;
+  }
+
+  const staMinRank = getRankFromValue(staMin);
+  const staMaxRank = getRankFromValue(staMax);
+
+  document.getElementById("staResultMin").textContent = staMin;
+  document.getElementById("staResultMinRank").innerHTML = getRankBadge(staMinRank, 'small');
+  document.getElementById("staResultMax").textContent = staMax;
+  document.getElementById("staResultMaxRank").innerHTML = getRankBadge(staMaxRank, 'small');
+
+  if (staMinRank === staMaxRank) {
+    document.getElementById("staResultRange").innerHTML = `確定: ${getRankBadge(staMinRank)}`;
+  } else {
+    document.getElementById("staResultRange").innerHTML = `${getRankBadge(staMinRank)} 〜 ${getRankBadge(staMaxRank)} の可能性`;
+  }
+
+  document.getElementById("staminaResultBox").style.display = "block";
+}
+function clearStamina() {
+  document.getElementById("initStaNum").value = "";
+  document.getElementById("initStaRank").value = "";
+  document.getElementById("staminaResultBox").style.display = "none";
+}
+
+// --- データテーブル ---
+function renderCapTable() {
+  const table = document.getElementById("capTable");
+  let html = `<thead><tr><th>時期</th><th>成長型1</th><th>成長型2</th><th>成長型3</th><th>成長型4</th><th>成長型5</th><th>成長型6</th></tr></thead><tbody>`;
+  DEFAULT_PERIOD_LABELS.forEach((label, idx) => {
+    html += `<tr><td><strong>${label}</strong></td>`;
+    for (let gt = 1; gt <= 6; gt++) {
+      const val = SPEED_CAP_TABLE[gt][idx];
+      const isDefault = val === DEFAULT_SPEED_CAP_TABLE[gt][idx];
+      html += `<td class="editable${isDefault ? '' : ' edited'}" onclick="editCell(${gt}, ${idx}, this)">${val}%</td>`;
+    }
+    html += `</tr>`;
+  });
+  html += `</tbody>`;
+  table.innerHTML = html;
+}
+function editCell(gt, idx, td) {
+  const current = SPEED_CAP_TABLE[gt][idx];
+  const input = document.createElement("input");
+  input.type = "number"; input.value = current; input.min = "1"; input.max = "100";
+  input.onblur = function() {
+    const newVal = parseInt(input.value);
+    if (!isNaN(newVal) && newVal >= 1 && newVal <= 100) {
+      SPEED_CAP_TABLE[gt][idx] = newVal;
+      td.textContent = newVal + "%"; td.classList.add("edited");
+      localStorage.setItem("dabimas_cap_table", JSON.stringify(SPEED_CAP_TABLE));
+    } else { td.textContent = current + "%"; }
+  };
+  input.onkeydown = function(e) {
+    if (e.key === "Enter") input.blur();
+    if (e.key === "Escape") { td.textContent = current + "%"; }
+  };
+  td.textContent = ""; td.appendChild(input);
+  input.focus(); input.select();
+}
+
+// --- 共有 ---
+function copyUrl() {
+  navigator.clipboard.writeText(window.location.href).then(() => { alert("URLをコピーしました！"); }).catch(() => { prompt("以下をコピーしてください:", window.location.href); });
+}
+function shareX() {
+  const text = encodeURIComponent("ダビマスのスピード測定ができる非公式ツール、めっちゃ便利やで！🏇");
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank", "width=600,height=400");
+}
+function shareLine() {
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://social-plugins.line.me/lineit/share?url=${url}`, "_blank");
+}
+
+// --- 初期化 ---
+function initMeasureApp() {
+  renderCapTable();
+  const xTable = document.getElementById("xMonthTable");
+  let xHtml = `<thead><tr><th>成長型</th><th>初期値範囲</th><th>最速ピークアウト時期</th></tr></thead><tbody>`;
+  const PEAK_INIT_RANGE = [
+  { gt: 1, range: "79-70%" }, { gt: 2, range: "69-60%" }, { gt: 3, range: "59-50%" },
+  { gt: 4, range: "49-40%" }, { gt: 5, range: "39-30%" }, { gt: 6, range: "29-20%" }
+];
+X_MONTH_TABLE.forEach(x => {
+  const gt = x.x + 1;
+  const initRange = PEAK_INIT_RANGE.find(p => p.gt === gt)?.range || "";
+  xHtml += `<tr><td><strong>成長型 ${gt}</strong></td><td>${initRange}</td><td>${x.label}</td></tr>`;
+});
+  xHtml += `</tbody>`;
+  xTable.innerHTML = xHtml;
+
+  const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("show"); }); }, { threshold: 0.1 });
+  document.querySelectorAll(".animate-in").forEach(el => observer.observe(el));
+
+  const sections = document.querySelectorAll(".section");
+  const navLinks = document.querySelectorAll(".nav-links a");
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach(sec => { const top = sec.offsetTop - 100; if (scrollY >= top) current = sec.getAttribute("id"); });
+    navLinks.forEach(a => { a.classList.toggle("active", a.getAttribute("href") === "#" + current); });
+  });
+}
+// initMeasureApp() は switchApp 時に呼び出す
+
+
+// ============================================================
+// APP 2: 理論値計算
+// ============================================================
+function initTheoryApp() {
+  // 増殖防止: 動的生成要素をクリア
+  const traitsEl = document.getElementById('traits');
+  if (traitsEl) traitsEl.innerHTML = '';
+  const runMidEl = document.getElementById('runMidRow');
+  if (runMidEl) runMidEl.innerHTML = '';
+  const thunderStrongEl = document.getElementById('thunderStrongRow');
+  if (thunderStrongEl) thunderStrongEl.innerHTML = '';
+  const sireRowsEl = document.getElementById('sireRows');
+  if (sireRowsEl) sireRowsEl.innerHTML = '';
+  const damRowsEl = document.getElementById('damRows');
+  if (damRowsEl) damRowsEl.innerHTML = '';
+
+// ----- Base value map -----
+  const baseMap = {
+    0: { sp: 137, st: 136 },
+    1: { sp: 137, st: 136 },
+    2: { sp: 137, st: 136 },
+    3: { sp: 137, st: 136 },
+    4: { sp: 138, st: 135 },
+    5: { sp: 138, st: 135 },
+    6: { sp: 139, st: 134 },
+    7: { sp: 139, st: 134 },
+    8: { sp: 140, st: 133 },
+    9: { sp: 141, st: 132 },
+    10: { sp: 142, st: 131 },
+  };
+
+  // ----- Top traits -----
+  const traits = [
+    { key: '短', modSp: 2, modSt: -1 },
+    { key: '速', modSp: 1, modSt: 0 },
+    { key: '長', modSp: 0, modSt: 1 },
+    { key: '走', modSp: 2, modSt: 0 },
+    { key: '中', modSp: 1, modSt: 1 },
+    { key: '強', modSp: 0, modSt: 2 },
+    { key: '雷', modSp: 2, modSt: -1 },
+  ];
+
+  const traitsContainer = document.getElementById('traits');
+  traits.forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'trait';
+
+    const name = document.createElement('span');
+    name.className = 'trait-name';
+    name.textContent = t.key;
+
+    const sel = document.createElement('select');
+    sel.id = 'trait_' + i;
+    for (let v = 0; v <= 4; v++) {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      sel.appendChild(opt);
+    }
+
+    div.appendChild(name);
+    div.appendChild(sel);
+    traitsContainer.appendChild(div);
+  });
+
+  // ----- Run / Mid nitro -----
+  const runMidRow = document.getElementById('runMidRow');
+
+  const runDiv = document.createElement('div');
+  runDiv.className = 'run-mid-item';
+  const runLabel = document.createElement('label');
+  runLabel.textContent = '走';
+  const runSel = document.createElement('select');
+  runSel.id = 'runNitro';
+  for (let v = 0; v <= 5; v++) {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    runSel.appendChild(opt);
+  }
+  runDiv.appendChild(runLabel);
+  runDiv.appendChild(runSel);
+  runMidRow.appendChild(runDiv);
+
+  const midDiv = document.createElement('div');
+  midDiv.className = 'run-mid-item';
+  const midLabel = document.createElement('label');
+  midLabel.textContent = '中';
+  const midSel = document.createElement('select');
+  midSel.id = 'midNitro';
+  for (let v = 0; v <= 5; v++) {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    midSel.appendChild(opt);
+  }
+  midDiv.appendChild(midLabel);
+  midDiv.appendChild(midSel);
+  runMidRow.appendChild(midDiv);
+
+  // ----- Thunder / Strong nitro -----
+  const thunderStrongRow = document.getElementById('thunderStrongRow');
+
+  const thunderDiv = document.createElement('div');
+  thunderDiv.className = 'thunder-strong-item';
+  const thunderLabel = document.createElement('label');
+  thunderLabel.textContent = '雷';
+  const thunderSel = document.createElement('select');
+  thunderSel.id = 'thunderNitro';
+  for (let v = 0; v <= 4; v++) {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    thunderSel.appendChild(opt);
+  }
+  thunderDiv.appendChild(thunderLabel);
+  thunderDiv.appendChild(thunderSel);
+  thunderStrongRow.appendChild(thunderDiv);
+
+  const strongDiv = document.createElement('div');
+  strongDiv.className = 'thunder-strong-item';
+  const strongLabel = document.createElement('label');
+  strongLabel.textContent = '強';
+  const strongSel = document.createElement('select');
+  strongSel.id = 'strongNitro';
+  for (let v = 0; v <= 4; v++) {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    strongSel.appendChild(opt);
+  }
+  strongDiv.appendChild(strongLabel);
+  strongDiv.appendChild(strongSel);
+  thunderStrongRow.appendChild(strongDiv);
+
+  // ----- Pedigree data -----
+  const sireData = [
+    { rel: "父", bar: "blue", color: "" },
+    { rel: "父父", bar: "blue", color: "green" },
+    { rel: "父母父", bar: "blue", color: "" },
+    { rel: "母母父", bar: "blue", color: "" },
+    { rel: "父父母父", bar: "red", color: "" },
+    { rel: "父母母父", bar: "red", color: "yellow" },
+    { rel: "母父父母父", bar: "red", color: "green" },
+    { rel: "母母母父", bar: "blue", color: "" },
+    { rel: "父父父母父", bar: "blue", color: "yellow" },
+    { rel: "父母父父母父", bar: "blue", color: "green" },
+    { rel: "父母母父母父", bar: "red", color: "" },
+    { rel: "母父父父母父", bar: "red", color: "" },
+    { rel: "母父母父父母父", bar: "red", color: "yellow" },
+    { rel: "母母父父母父", bar: "red", color: "green" },
+    { rel: "母母父母父", bar: "blue", color: "" },
+    { rel: "母母母母父", bar: "red", color: "yellow" },
+  ];
+
+  const damData = [
+    { rel: "父", bar: "blue", color: "" },
+    { rel: "母父", bar: "blue", color: "half" },
+    { rel: "父母父", bar: "blue", color: "" },
+    { rel: "母母父", bar: "blue", color: "" },
+    { rel: "父父母父", bar: "red", color: "" },
+    { rel: "父母父", bar: "red", color: "" },
+    { rel: "母父父母父", bar: "red", color: "half" },
+    { rel: "母母母父", bar: "blue", color: "" },
+    { rel: "父父父母父", bar: "blue", color: "" },
+    { rel: "父母父父母父", bar: "blue", color: "half" },
+    { rel: "父母父母父", bar: "red", color: "" },
+    { rel: "母父父父母父", bar: "red", color: "" },
+    { rel: "母父母父父母父", bar: "red", color: "" },
+    { rel: "母母父父母父", bar: "red", color: "half" },
+    { rel: "母母母父母父", bar: "blue", color: "" },
+    { rel: "母母母母父", bar: "red", color: "" },
+  ];
+
+  const targetRows = [4, 6, 7, 9, 11, 13, 14, 16];
+  const pedigreeSelectValues = ['0','0.5','1','1.5','2','2.5','3'];
+
+  function createPedigreeRows(containerId, data) {
+    const container = document.getElementById(containerId);
+    data.forEach((item, idx) => {
+      const rowNum = idx + 1;
+      const row = document.createElement('div');
+      let cls = 'pedigree-row';
+      if (item.color === 'green') cls += ' green';
+      if (item.color === 'yellow') cls += ' yellow';
+      if (item.color === 'half') cls += ' half';
+      row.className = cls;
+
+      const bar = document.createElement('div');
+      bar.className = 'side-bar ' + item.bar;
+      row.appendChild(bar);
+
+      const relSpan = document.createElement('span');
+      relSpan.className = 'relation';
+      relSpan.textContent = item.rel;
+
+      const numSpan = document.createElement('span');
+      numSpan.className = 'row-num';
+      numSpan.textContent = rowNum;
+
+      row.appendChild(relSpan);
+      row.appendChild(numSpan);
+
+      if (targetRows.includes(rowNum)) {
+        const selectsDiv = document.createElement('div');
+        selectsDiv.className = 'spst-selects';
+
+        const spLabel = document.createElement('label');
+        spLabel.innerHTML = 'スピ';
+        const spSelect = document.createElement('select');
+        spSelect.className = 'sp-select';
+        pedigreeSelectValues.forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v;
+          opt.textContent = v;
+          spSelect.appendChild(opt);
+        });
+        spLabel.appendChild(spSelect);
+
+        const stLabel = document.createElement('label');
+        stLabel.innerHTML = 'スタ';
+        const stSelect = document.createElement('select');
+        stSelect.className = 'st-select';
+        pedigreeSelectValues.forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v;
+          opt.textContent = v;
+          stSelect.appendChild(opt);
+        });
+        stLabel.appendChild(stSelect);
+
+        selectsDiv.appendChild(spLabel);
+        selectsDiv.appendChild(stLabel);
+        row.appendChild(selectsDiv);
+      }
+
+      container.appendChild(row);
+    });
+  }
+
+  createPedigreeRows('sireRows', sireData);
+  createPedigreeRows('damRows', damData);
+
+  // ----- Calculation -----
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const nitro = parseInt(document.getElementById('nitro').value, 10);
+    const base = baseMap[nitro];
+    const baseSp = base.sp;
+    const baseSt = base.st;
+
+    let traitSp = 0;
+    let traitSt = 0;
+    traits.forEach((t, i) => {
+      const v = parseInt(document.getElementById('trait_' + i).value, 10);
+      traitSp += v * t.modSp;
+      traitSt += v * t.modSt;
+    });
+
+    // Run nitro: +1 Sp per count
+    const runVal = parseInt(document.getElementById('runNitro').value, 10);
+    const runSp = runVal * 1;
+    const runSt = 0;
+
+    // Mid nitro: alternating Sp/St
+    const midVal = parseInt(document.getElementById('midNitro').value, 10);
+    const midSp = Math.ceil(midVal / 2);
+    const midSt = Math.floor(midVal / 2);
+
+    // Thunder nitro
+    const thunderEffects = [
+      { sp: 1.5, st: -2 },
+      { sp: 1.5, st: -2 },
+      { sp: 2.0, st: -3 },
+      { sp: 2.0, st: -3 },
+    ];
+    const thunderCount = parseInt(document.getElementById('thunderNitro').value, 10);
+    let thunderSp = 0;
+    let thunderSt = 0;
+    for (let i = 0; i < thunderCount; i++) {
+      thunderSp += thunderEffects[i].sp;
+      thunderSt += thunderEffects[i].st;
+    }
+
+    // Strong nitro: +2 St at 2 and 4
+    const strongCount = parseInt(document.getElementById('strongNitro').value, 10);
+    const strongSt = Math.floor(strongCount / 2) * 2;
+
+    let pedSp = 0;
+    let pedSt = 0;
+    document.querySelectorAll('.sp-select').forEach(sel => {
+      pedSp += parseFloat(sel.value);
+    });
+    document.querySelectorAll('.st-select').forEach(sel => {
+      pedSt += parseFloat(sel.value);
+    });
+
+    const finalSp = Math.floor(baseSp + traitSp + runSp + midSp + thunderSp + pedSp);
+    const finalSt = Math.floor(baseSt + traitSt + runSt + midSt + thunderSt + strongSt + pedSt);
+
+    document.getElementById('resSp').textContent = finalSp;
+    document.getElementById('resSt').textContent = finalSt;
+    document.getElementById('resSub').textContent =
+      '基礎値 スピ' + baseSp + '／スタ' + baseSt +
+      '　＋　至高ベース' +
+      '　＋　走中ニトロ（走+' + runSp + '　中スピ+' + midSp + 'スタ+' + midSt + '）' +
+      '　＋　雷強ニトロ（雷スピ+' + thunderSp + 'スタ' + thunderSt + '　強スタ+' + strongSt + '）' +
+      '　＋　血統理論値加算';
+    document.getElementById('resultBox').style.display = 'block';
+  });
+
+  // ----- Reset -----
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    document.getElementById('nitro').value = '10';
+    traits.forEach((t, i) => {
+      document.getElementById('trait_' + i).value = '0';
+    });
+    document.getElementById('runNitro').value = '0';
+    document.getElementById('midNitro').value = '0';
+    document.getElementById('thunderNitro').value = '0';
+    document.getElementById('strongNitro').value = '0';
+    document.querySelectorAll('.sp-select').forEach(sel => sel.value = '0');
+    document.querySelectorAll('.st-select').forEach(sel => sel.value = '0');
+    document.getElementById('resultBox').style.display = 'none';
+  });
+}
+// ============================================================
+// APP 3: 配合進捗管理
+// ============================================================
+const PED_STORAGE_KEY = 'pedigree_v17';
+const OLD_KEY = 'pedigree_v10';
+
+const GEN5_IDS = ['sssss','ssssd','sssds','sssdd','ssdss','ssdsd','ssdds','ssddd','sdsss','sdssd','sdsds','sdsdd','sddss','sddsd','sddds','sdddd','dssss','dsssd','dssds','dssdd','dsdss','dsdsd','dsdds','dsddd','ddsss','ddssd','ddsds','ddsdd','dddss','dddsd','dddds','ddddd'];
+
+const CHILDREN = {
+  's': ['ss', 'sd'],
+  'd': ['ds', 'dd'],
+  'ss': ['sss', 'ssd'],
+  'sd': ['sds', 'sdd'],
+  'ds': ['dss', 'dsd'],
+  'dd': ['dds', 'ddd'],
+  'sss': ['ssss', 'sssd'],
+  'ssd': ['ssds', 'ssdd'],
+  'sds': ['sdss', 'sdsd'],
+  'sdd': ['sdds', 'sddd'],
+  'dss': ['dsss', 'dssd'],
+  'dsd': ['dsds', 'dsdd'],
+  'dds': ['ddss', 'ddsd'],
+  'ddd': ['ddds', 'dddd'],
+  'ssss': ['sssss', 'ssssd'],
+  'sssd': ['sssds', 'sssdd'],
+  'ssds': ['ssdss', 'ssdsd'],
+  'ssdd': ['ssdds', 'ssddd'],
+  'sdss': ['sdsss', 'sdssd'],
+  'sdsd': ['sdsds', 'sdsdd'],
+  'sdds': ['sddss', 'sddsd'],
+  'sddd': ['sddds', 'sdddd'],
+  'dsss': ['dssss', 'dsssd'],
+  'dssd': ['dssds', 'dssdd'],
+  'dsds': ['dsdss', 'dsdsd'],
+  'dsdd': ['dsdds', 'dsddd'],
+  'ddss': ['ddsss', 'ddssd'],
+  'ddsd': ['ddsds', 'ddsdd'],
+  'ddds': ['dddss', 'dddsd'],
+  'dddd': ['dddds', 'ddddd']
+};
+
+const ALL_IDS = [
+  's','d','ss','sd','ds','dd','sss','ssd','sds','sdd','dss','dsd','dds','ddd',
+  'ssss','sssd','ssds','ssdd','sdss','sdsd','sdds','sddd','dsss','dssd','dsds','dsdd','ddss','ddsd','ddds','dddd',
+  'sssss','ssssd','sssds','sssdd','ssdss','ssdsd','ssdds','ssddd','sdsss','sdssd','sdsds','sdsdd','sddss','sddsd','sddds','sdddd',
+  'dssss','dsssd','dssds','dssdd','dsdss','dsdsd','dsdds','dsddd','ddsss','ddssd','ddsds','ddsdd','dddss','dddsd','dddds','ddddd'
+];
+
+function initPedigreeApp() {
+  attachListeners();
+
+  const oldRaw = localStorage.getItem(OLD_KEY);
+  const newRaw = localStorage.getItem(PED_STORAGE_KEY);
+  if (oldRaw && !newRaw) {
+    document.getElementById('migrateBanner').classList.add('show');
+  }
+
+  loadProgress();
+}
+
+function attachListeners() {
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const ownedInp = td.querySelector('.inp-owned');
+    const targetInp = td.querySelector('.inp-target');
+    const bellInp = td.querySelector('.inp-bell');
+    const charmInp = td.querySelector('.inp-charm');
+    const nameEl = td.querySelector('.cell-name');
+
+    if (ownedInp) ownedInp.addEventListener('input', () => { recalcCapacity(); autoSave(); });
+    if (targetInp) targetInp.addEventListener('input', () => { updateCellColor(td); autoSave(); });
+    if (bellInp) bellInp.addEventListener('change', () => { recalcCapacity(); autoSave(); });
+    if (charmInp) charmInp.addEventListener('change', () => { recalcCapacity(); autoSave(); });
+    if (nameEl) nameEl.addEventListener('input', () => autoSave());
+  });
+}
+
+function getCellState(id) {
+  const td = document.querySelector(`#app-pedigree td[data-id="${id}"]`);
+  if (!td) return null;
+  const isGen5 = td.classList.contains('gen5');
+  const isDam = td.classList.contains('dam');
+  const ownedInp = td.querySelector('.inp-owned');
+  const targetInp = td.querySelector('.inp-target');
+  const bellInp = td.querySelector('.inp-bell');
+  const charmInp = td.querySelector('.inp-charm');
+  return {
+    id, td, isGen5, isDam,
+    owned: ownedInp ? parseInt(ownedInp.value || '0', 10) : 0,
+    target: targetInp ? parseInt(targetInp.value || '0', 10) : 0,
+    bell: bellInp ? bellInp.checked : false,
+    charm: charmInp ? charmInp.checked : false
+  };
+}
+
+function calcCapacity(id) {
+  const state = getCellState(id);
+  if (!state) return 0;
+
+  if (state.isGen5) {
+    if (state.isDam) {
+      return state.owned * (state.bell ? 14 : 9);
+    } else {
+      return state.owned * 5;
+    }
+  }
+
+  const children = CHILDREN[id];
+  if (!children) return 0;
+  const left = calcCapacity(children[0]);
+  const right = calcCapacity(children[1]);
+  return Math.min(left, right);
+}
+
+function recalcCapacity() {
+  const capacities = {};
+  ALL_IDS.forEach(id => {
+    capacities[id] = calcCapacity(id);
+  });
+
+  ALL_IDS.forEach(id => {
+    const td = document.querySelector(`#app-pedigree td[data-id="${id}"]`);
+    if (!td) return;
+    const capEl = td.querySelector('.txt-capacity');
+    if (capEl) capEl.textContent = capacities[id];
+    updateCellColor(td);
+  });
+}
+
+function updateCellColor(td) {
+  const capEl = td.querySelector('.txt-capacity');
+  const targetInp = td.querySelector('.inp-target');
+  if (!capEl || !targetInp) return;
+  const cap = parseInt(capEl.textContent || '0', 10);
+  const target = parseInt(targetInp.value || '0', 10);
+  td.classList.remove('under', 'complete');
+  if (target > 0) {
+    if (target > cap) td.classList.add('under');
+    else td.classList.add('complete');
+  }
+}
+
+function checkAllBells() {
+  document.querySelectorAll('#app-pedigree td[data-id].dam').forEach(td => {
+    const bellInp = td.querySelector('.inp-bell');
+    if (bellInp) bellInp.checked = true;
+  });
+  recalcCapacity();
+  autoSave();
+}
+
+function checkAllCharms() {
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const charmInp = td.querySelector('.inp-charm');
+    if (charmInp) charmInp.checked = true;
+  });
+  recalcCapacity();
+  autoSave();
+}
+
+function migrateFromV10() {
+  try {
+    const oldRaw = localStorage.getItem(OLD_KEY);
+    if (!oldRaw) { alert('移行元のデータが見つかりません'); return; }
+    const oldData = JSON.parse(oldRaw);
+    if (!oldData || typeof oldData !== 'object') { alert('移行元のデータが破損しています'); return; }
+
+    const payload = { bells: [], charms: [], names: {}, owned: {}, targets: {}, globalGoal: 0 };
+
+    if (oldData.names) payload.names = oldData.names;
+    if (oldData.targets) payload.targets = oldData.targets;
+    if (oldData.bells) payload.bells = oldData.bells;
+    if (oldData.charms) payload.charms = oldData.charms;
+    if (oldData.globalGoal) payload.globalGoal = oldData.globalGoal;
+
+    if (oldData.currents) {
+      GEN5_IDS.forEach(id => {
+        if (oldData.currents[id] !== undefined && oldData.currents[id] > 0) {
+          payload.owned[id] = oldData.currents[id];
+        }
+      });
+    }
+
+    localStorage.setItem(PED_STORAGE_KEY, JSON.stringify(payload));
+    document.getElementById('migrateBanner').classList.remove('show');
+    loadProgress();
+    alert('v10のデータを移行しました');
+  } catch (e) {
+    alert('移行に失敗しました: ' + e.message);
+  }
+}
+
+function getCurrentPayload() {
+  const payload = { bells: [], charms: [], names: {}, owned: {}, targets: {}, globalGoal: 0 };
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const id = td.dataset.id;
+    const bellInp = td.querySelector('.inp-bell');
+    const charmInp = td.querySelector('.inp-charm');
+    const nameEl = td.querySelector('.cell-name');
+    const ownedInp = td.querySelector('.inp-owned');
+    const targetInp = td.querySelector('.inp-target');
+
+    if (bellInp && bellInp.checked) payload.bells.push(id);
+    if (charmInp && charmInp.checked) payload.charms.push(id);
+    if (nameEl && nameEl.textContent.trim()) payload.names[id] = nameEl.textContent.trim();
+    if (ownedInp) {
+      const v = parseInt(ownedInp.value || '0', 10);
+      if (v > 0) payload.owned[id] = v;
+    }
+    if (targetInp) {
+      const v = parseInt(targetInp.value || '0', 10);
+      if (v > 0) payload.targets[id] = v;
+    }
+  });
+  return payload;
+}
+
+function applyPayload(payload) {
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const id = td.dataset.id;
+    const bellInp = td.querySelector('.inp-bell');
+    const charmInp = td.querySelector('.inp-charm');
+    const nameEl = td.querySelector('.cell-name');
+    const ownedInp = td.querySelector('.inp-owned');
+    const targetInp = td.querySelector('.inp-target');
+
+    if (bellInp) bellInp.checked = (payload.bells || []).includes(id);
+    if (charmInp) charmInp.checked = (payload.charms || []).includes(id);
+    if (nameEl) nameEl.textContent = (payload.names && payload.names[id]) ? payload.names[id] : '';
+    if (ownedInp) ownedInp.value = (payload.owned && payload.owned[id] !== undefined) ? payload.owned[id] : '';
+    if (targetInp) targetInp.value = (payload.targets && payload.targets[id] !== undefined) ? payload.targets[id] : '';
+  });
+  recalcCapacity();
+}
+
+function autoSave() {
+  const payload = getCurrentPayload();
+  localStorage.setItem(PED_STORAGE_KEY, JSON.stringify(payload));
+}
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(PED_STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    if (!data || typeof data !== 'object') return;
+    applyPayload(data);
+  } catch (e) { console.error(e); }
+}
+
+function generateSaveCode() {
+  const payload = getCurrentPayload();
+  const code = JSON.stringify(payload);
+  document.getElementById('saveCodeOut').value = code;
+}
+
+function copySaveCode() {
+  const el = document.getElementById('saveCodeOut');
+  if (!el.value) {
+    alert('先に「生成」ボタンを押してください');
+    return;
+  }
+  el.select();
+  document.execCommand('copy');
+  alert('セーブコードをコピーしました');
+}
+
+function loadSaveCode() {
+  const code = document.getElementById('saveCodeIn').value.trim();
+  if (!code) { alert('セーブコードを貼り付けてください'); return; }
+  try {
+    const payload = JSON.parse(code);
+    if (!payload || typeof payload !== 'object') throw new Error('Invalid');
+    applyPayload(payload);
+    autoSave();
+    alert('セーブコードを読み込みました');
+  } catch (e) {
+    alert('無効なセーブコードです。JSON形式か確認してください');
+  }
+}
+
+function resetAll() {
+  if (!confirm('すべての入力・チェックを解除しますか？')) return;
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const nameEl = td.querySelector('.cell-name');
+    const ownedInp = td.querySelector('.inp-owned');
+    const targetInp = td.querySelector('.inp-target');
+    const bellInp = td.querySelector('.inp-bell');
+    const charmInp = td.querySelector('.inp-charm');
+    const capEl = td.querySelector('.txt-capacity');
+
+    if (nameEl) nameEl.textContent = '';
+    if (ownedInp) ownedInp.value = '';
+    if (targetInp) targetInp.value = '';
+    if (bellInp) bellInp.checked = false;
+    if (charmInp) charmInp.checked = false;
+    if (capEl) capEl.textContent = '0';
+    td.classList.remove('under', 'complete');
+  });
+  document.getElementById('saveCodeOut').value = '';
+  document.getElementById('saveCodeIn').value = '';
+  autoSave();
+}
+
+function exportJSON() {
+  const payload = getCurrentPayload();
+  payload.exportedAt = new Date().toISOString();
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '配合進捗.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importJSON() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = evt => {
+      try {
+        const payload = JSON.parse(evt.target.result);
+        if (!payload || typeof payload !== 'object') throw new Error('Invalid');
+        applyPayload(payload);
+        autoSave();
+        alert('JSONファイルを読み込みました');
+      } catch (err) { alert('ファイルの読み込みに失敗しました'); }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// ============================================================
+// INIT ALL APPS
+// ============================================================
+function init() {
+  initTheme();
+  renderCapTable();
+  const xTable = document.getElementById("xMonthTable");
+  let xHtml = `<thead><tr><th>成長型</th><th>初期値範囲</th><th>最速ピークアウト時期</th></tr></thead><tbody>`;
+  const PEAK_INIT_RANGE = [
+    { gt: 1, range: "79-70%" }, { gt: 2, range: "69-60%" }, { gt: 3, range: "59-50%" },
+    { gt: 4, range: "49-40%" }, { gt: 5, range: "39-30%" }, { gt: 6, range: "29-20%" }
+  ];
+  X_MONTH_TABLE.forEach(x => {
+    const gt = x.x + 1;
+    const initRange = PEAK_INIT_RANGE.find(p => p.gt === gt)?.range || "";
+    xHtml += `<tr><td><strong>成長型 ${gt}</strong></td><td>${initRange}</td><td>${x.label}</td></tr>`;
+  });
+  xHtml += `</tbody>`;
+  xTable.innerHTML = xHtml;
+
+  initTheoryApp();
+  initPedigreeApp();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</div>
+
+<!-- ===== App 2: 理論値計算 ===== -->
+<div id="app-theory" class="app-container">
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">🧮 ダービースタリオン 非公式ツール</div>
+    <h1>理論値<br><span>計算ツール</span></h1>
+    <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem;">made by 籾殻、sakanachat / supported by にんじん</div>
+    <p>短距離ニトロ、至高ベース、走中ニトロ、雷強ニトロ、血統理論値を加味してスピード・スタミナを算出します。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+<div class="control-group">
+<div class="control-row">
+<label for="nitro">短距離ニトロ</label>
+<div class="nitro-wrap">
+<select id="nitro">
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option selected="" value="10">10</option>
+</select>
+</div>
+</div>
+<div class="control-row">
+<label>至高ベース</label>
+<div class="traits" id="traits"></div>
+</div>
+<div class="control-row">
+<label>走中ニトロ</label>
+<div class="run-mid-row" id="runMidRow"></div>
+</div>
+<div class="control-row">
+<label>雷強ニトロ</label>
+<div class="thunder-strong-row" id="thunderStrongRow"></div>
+</div>
+</div>
+<h2>血統選択</h2>
+<div class="pedigree-wrapper">
+<div class="pedigree-col">
+<div class="pedigree-header sire">父側</div>
+<div id="sireRows"></div>
+</div>
+<div class="pedigree-col">
+<div class="pedigree-header dam">母側</div>
+<div id="damRows"></div>
+</div>
+</div>
+<div class="calc-area">
+<button class="btn-calc" id="calcBtn">計算</button>
+</div>
+<div class="result-box" id="resultBox" style="display:none;">
+<div>スピード <span class="val" id="resSp">-</span> ／ スタミナ <span class="val" id="resSt">-</span></div>
+<div class="sub" id="resSub"></div>
+</div>
+<div class="note">
+<strong>計算ルール</strong><br/>
+  短距離ニトロを基に、選択した系統の補正を足してスピード・スタミナを算出します。<br/>
+  短：スピ+2　スタ-1　／　速：スピ+1　／　長：スタ+1　／　走：スピ+2　／　中：スピ+1　スタ+1　／　強：スタ+2　／　雷：スピ+2　スタ-1<br/><br/>
+<strong>走中ニトロ</strong><br/>
+  走：1つにつきスピ+1（最大5）<br/>
+  中：1増えるごとにスピ1・スタ1が交互に増加（1→スピ1、2→スピ1スタ1、3→スピ2スタ1、4→スピ2スタ2、5→スピ3スタ2）<br/><br/>
+<strong>雷強ニトロ</strong><br/>
+  雷：1,2個目→スピ+1.5　スタ-2　／　3,4個目→スピ+2　スタ-3<br/>
+  強：2個と4個でスタ+2ずつ（最大4個でスタ+4）
+</div>
+<div class="reset-area">
+<button class="btn-reset" id="resetBtn">リセット</button>
+</div>
+<script>
+  // ----- Base value map -----
+  const baseMap = {
+    0: { sp: 137, st: 136 },
+    1: { sp: 137, st: 136 },
+    2: { sp: 137, st: 136 },
+    3: { sp: 137, st: 136 },
+    4: { sp: 138, st: 135 },
+    5: { sp: 138, st: 135 },
+    6: { sp: 139, st: 134 },
+    7: { sp: 139, st: 134 },
+    8: { sp: 140, st: 133 },
+    9: { sp: 141, st: 132 },
+    10: { sp: 142, st: 131 },
+  };
+
+  // ----- Top traits -----
+  const traits = [
+    { key: '短', modSp: 2, modSt: -1 },
+    { key: '速', modSp: 1, modSt: 0 },
+    { key: '長', modSp: 0, modSt: 1 },
+    { key: '走', modSp: 2, modSt: 0 },
+    { key: '中', modSp: 1, modSt: 1 },
+    { key: '強', modSp: 0, modSt: 2 },
+    { key: '雷', modSp: 2, modSt: -1 },
+  ];
+
+  const traitsContainer = document.getElementById('traits');
+  traits.forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'trait';
+
+    const name = document.createElement('span');
+    name.className = 'trait-name';
+    name.textContent = t.key;
+
+    const sel = document.createElement('select');
+    sel.id = 'trait_' + i;
+    for (let v = 0; v <= 4; v++) {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      sel.appendChild(opt);
+    }
+
+    div.appendChild(name);
+    div.appendChild(sel);
+    traitsContainer.appendChild(div);
+  });
+
+  // ----- Run / Mid nitro -----
+  const runMidRow = document.getElementById('runMidRow');
+
+  const runDiv = document.createElement('div');
+  runDiv.className = 'run-mid-item';
+  const runLabel = document.createElement('label');
+  runLabel.textContent = '走';
+  const runSel = document.createElement('select');
+  runSel.id = 'runNitro';
+  for (let v = 0; v <= 5; v++) {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    runSel.appendChild(opt);
+  }
+  runDiv.appendChild(runLabel);
+  runDiv.appendChild(runSel);
+  runMidRow.appendChild(runDiv);
+
+  const midDiv = document.createElement('div');
+  midDiv.className = 'run-mid-item';
+  const midLabel = document.createElement('label');
+  midLabel.textContent = '中';
+  const midSel = document.createElement('select');
+  midSel.id = 'midNitro';
+  for (let v = 0; v <= 5; v++) {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    midSel.appendChild(opt);
+  }
+  midDiv.appendChild(midLabel);
+  midDiv.appendChild(midSel);
+  runMidRow.appendChild(midDiv);
+
+  // ----- Thunder / Strong nitro -----
+  const thunderStrongRow = document.getElementById('thunderStrongRow');
+
+  const thunderDiv = document.createElement('div');
+  thunderDiv.className = 'thunder-strong-item';
+  const thunderLabel = document.createElement('label');
+  thunderLabel.textContent = '雷';
+  const thunderSel = document.createElement('select');
+  thunderSel.id = 'thunderNitro';
+  for (let v = 0; v <= 4; v++) {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    thunderSel.appendChild(opt);
+  }
+  thunderDiv.appendChild(thunderLabel);
+  thunderDiv.appendChild(thunderSel);
+  thunderStrongRow.appendChild(thunderDiv);
+
+  const strongDiv = document.createElement('div');
+  strongDiv.className = 'thunder-strong-item';
+  const strongLabel = document.createElement('label');
+  strongLabel.textContent = '強';
+  const strongSel = document.createElement('select');
+  strongSel.id = 'strongNitro';
+  for (let v = 0; v <= 4; v++) {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    strongSel.appendChild(opt);
+  }
+  strongDiv.appendChild(strongLabel);
+  strongDiv.appendChild(strongSel);
+  thunderStrongRow.appendChild(strongDiv);
+
+  // ----- Pedigree data -----
+  const sireData = [
+    { rel: "父", bar: "blue", color: "" },
+    { rel: "父父", bar: "blue", color: "green" },
+    { rel: "父母父", bar: "blue", color: "" },
+    { rel: "母母父", bar: "blue", color: "" },
+    { rel: "父父母父", bar: "red", color: "" },
+    { rel: "父母母父", bar: "red", color: "yellow" },
+    { rel: "母父父母父", bar: "red", color: "green" },
+    { rel: "母母母父", bar: "blue", color: "" },
+    { rel: "父父父母父", bar: "blue", color: "yellow" },
+    { rel: "父母父父母父", bar: "blue", color: "green" },
+    { rel: "父母母父母父", bar: "red", color: "" },
+    { rel: "母父父父母父", bar: "red", color: "" },
+    { rel: "母父母父父母父", bar: "red", color: "yellow" },
+    { rel: "母母父父母父", bar: "red", color: "green" },
+    { rel: "母母父母父", bar: "blue", color: "" },
+    { rel: "母母母母父", bar: "red", color: "yellow" },
+  ];
+
+  const damData = [
+    { rel: "父", bar: "blue", color: "" },
+    { rel: "母父", bar: "blue", color: "half" },
+    { rel: "父母父", bar: "blue", color: "" },
+    { rel: "母母父", bar: "blue", color: "" },
+    { rel: "父父母父", bar: "red", color: "" },
+    { rel: "父母父", bar: "red", color: "" },
+    { rel: "母父父母父", bar: "red", color: "half" },
+    { rel: "母母母父", bar: "blue", color: "" },
+    { rel: "父父父母父", bar: "blue", color: "" },
+    { rel: "父母父父母父", bar: "blue", color: "half" },
+    { rel: "父母父母父", bar: "red", color: "" },
+    { rel: "母父父父母父", bar: "red", color: "" },
+    { rel: "母父母父父母父", bar: "red", color: "" },
+    { rel: "母母父父母父", bar: "red", color: "half" },
+    { rel: "母母母父母父", bar: "blue", color: "" },
+    { rel: "母母母母父", bar: "red", color: "" },
+  ];
+
+  const targetRows = [4, 6, 7, 9, 11, 13, 14, 16];
+  const pedigreeSelectValues = ['0','0.5','1','1.5','2','2.5','3'];
+
+  function createPedigreeRows(containerId, data) {
+    const container = document.getElementById(containerId);
+    data.forEach((item, idx) => {
+      const rowNum = idx + 1;
+      const row = document.createElement('div');
+      let cls = 'pedigree-row';
+      if (item.color === 'green') cls += ' green';
+      if (item.color === 'yellow') cls += ' yellow';
+      if (item.color === 'half') cls += ' half';
+      row.className = cls;
+
+      const bar = document.createElement('div');
+      bar.className = 'side-bar ' + item.bar;
+      row.appendChild(bar);
+
+      const relSpan = document.createElement('span');
+      relSpan.className = 'relation';
+      relSpan.textContent = item.rel;
+
+      const numSpan = document.createElement('span');
+      numSpan.className = 'row-num';
+      numSpan.textContent = rowNum;
+
+      row.appendChild(relSpan);
+      row.appendChild(numSpan);
+
+      if (targetRows.includes(rowNum)) {
+        const selectsDiv = document.createElement('div');
+        selectsDiv.className = 'spst-selects';
+
+        const spLabel = document.createElement('label');
+        spLabel.innerHTML = 'スピ';
+        const spSelect = document.createElement('select');
+        spSelect.className = 'sp-select';
+        pedigreeSelectValues.forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v;
+          opt.textContent = v;
+          spSelect.appendChild(opt);
+        });
+        spLabel.appendChild(spSelect);
+
+        const stLabel = document.createElement('label');
+        stLabel.innerHTML = 'スタ';
+        const stSelect = document.createElement('select');
+        stSelect.className = 'st-select';
+        pedigreeSelectValues.forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v;
+          opt.textContent = v;
+          stSelect.appendChild(opt);
+        });
+        stLabel.appendChild(stSelect);
+
+        selectsDiv.appendChild(spLabel);
+        selectsDiv.appendChild(stLabel);
+        row.appendChild(selectsDiv);
+      }
+
+      container.appendChild(row);
+    });
+  }
+
+  createPedigreeRows('sireRows', sireData);
+  createPedigreeRows('damRows', damData);
+
+  // ----- Calculation -----
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const nitro = parseInt(document.getElementById('nitro').value, 10);
+    const base = baseMap[nitro];
+    const baseSp = base.sp;
+    const baseSt = base.st;
+
+    let traitSp = 0;
+    let traitSt = 0;
+    traits.forEach((t, i) => {
+      const v = parseInt(document.getElementById('trait_' + i).value, 10);
+      traitSp += v * t.modSp;
+      traitSt += v * t.modSt;
+    });
+
+    // Run nitro: +1 Sp per count
+    const runVal = parseInt(document.getElementById('runNitro').value, 10);
+    const runSp = runVal * 1;
+    const runSt = 0;
+
+    // Mid nitro: alternating Sp/St
+    const midVal = parseInt(document.getElementById('midNitro').value, 10);
+    const midSp = Math.ceil(midVal / 2);
+    const midSt = Math.floor(midVal / 2);
+
+    // Thunder nitro
+    const thunderEffects = [
+      { sp: 1.5, st: -2 },
+      { sp: 1.5, st: -2 },
+      { sp: 2.0, st: -3 },
+      { sp: 2.0, st: -3 },
+    ];
+    const thunderCount = parseInt(document.getElementById('thunderNitro').value, 10);
+    let thunderSp = 0;
+    let thunderSt = 0;
+    for (let i = 0; i < thunderCount; i++) {
+      thunderSp += thunderEffects[i].sp;
+      thunderSt += thunderEffects[i].st;
+    }
+
+    // Strong nitro: +2 St at 2 and 4
+    const strongCount = parseInt(document.getElementById('strongNitro').value, 10);
+    const strongSt = Math.floor(strongCount / 2) * 2;
+
+    let pedSp = 0;
+    let pedSt = 0;
+    document.querySelectorAll('.sp-select').forEach(sel => {
+      pedSp += parseFloat(sel.value);
+    });
+    document.querySelectorAll('.st-select').forEach(sel => {
+      pedSt += parseFloat(sel.value);
+    });
+
+    const finalSp = Math.floor(baseSp + traitSp + runSp + midSp + thunderSp + pedSp);
+    const finalSt = Math.floor(baseSt + traitSt + runSt + midSt + thunderSt + strongSt + pedSt);
+
+    document.getElementById('resSp').textContent = finalSp;
+    document.getElementById('resSt').textContent = finalSt;
+    document.getElementById('resSub').textContent =
+      '基礎値 スピ' + baseSp + '／スタ' + baseSt +
+      '　＋　至高ベース' +
+      '　＋　走中ニトロ（走+' + runSp + '　中スピ+' + midSp + 'スタ+' + midSt + '）' +
+      '　＋　雷強ニトロ（雷スピ+' + thunderSp + 'スタ' + thunderSt + '　強スタ+' + strongSt + '）' +
+      '　＋　血統理論値加算';
+    document.getElementById('resultBox').style.display = 'block';
+  });
+
+  // ----- Reset -----
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    document.getElementById('nitro').value = '10';
+    traits.forEach((t, i) => {
+      document.getElementById('trait_' + i).value = '0';
+    });
+    document.getElementById('runNitro').value = '0';
+    document.getElementById('midNitro').value = '0';
+    document.getElementById('thunderNitro').value = '0';
+    document.getElementById('strongNitro').value = '0';
+    document.querySelectorAll('.sp-select').forEach(sel => sel.value = '0');
+    document.querySelectorAll('.st-select').forEach(sel => sel.value = '0');
+    document.getElementById('resultBox').style.display = 'none';
+  });
+</script>
+  </div>
+</section>
+
+<footer>
+  <div>made by 籾殻、sakanachat / supported by にんじん</div>
+  <div style="margin-top:0.8rem;color:var(--muted);">単体HTMLファイル | オフライン動作対応</div>
+</footer>
+</div>
+<div id="app-pedigree" class="app-container">
+  <div class="container">
+    <header>
+      <h1>ダビマス 配合進捗管理</h1>
+      <p class="subtitle">5代前の「持っている数」を入力すると、自動で生産能力を計算します</p>
+    </header>
+
+    <div class="migrate-banner no-print" id="migrateBanner">
+      <strong>旧データを検出しました</strong><br>
+      前回の「配合進捗_目標生産数.html」のデータをこの画面に移行できます。
+      <button class="ped-btn primary" onclick="migrateFromV10()" style="margin-left:0.5rem">データを移行する</button>
+    </div>
+
+    <div class="card no-print">
+      <div class="controls">
+        <button class="ped-btn bell-btn" onclick="checkAllBells()">鈴を全部チェック</button>
+        <button class="ped-btn charm-btn" onclick="checkAllCharms()">お守りを全部チェック</button>
+        <button class="ped-btn danger" onclick="resetAll()">リセット</button>
+      </div>
+
+      <div class="savecode-section">
+        <label class="savecode-label">セーブコード（コピーしてメモ帳などに保存してください）</label>
+        <p class="savecode-hint">この文字列をコピーして保存。次回は貼り付けて「読み込み」で復元できます。</p>
+        <textarea id="saveCodeOut" class="savecode" readonly placeholder="「生成」ボタンを押すとここにセーブコードが表示されます"></textarea>
+        <div class="savecode-row">
+          <button class="ped-btn primary" onclick="generateSaveCode()">生成</button>
+          <button class="ped-btn" onclick="copySaveCode()">コピー</button>
+          <button class="ped-btn" onclick="exportJSON()">JSONファイルで保存</button>
+        </div>
+      </div>
+
+      <div class="savecode-section" style="margin-top:1.2rem;">
+        <label class="savecode-label">セーブコード / JSONファイル を読み込む</label>
+        <p class="savecode-hint">保存したセーブコードを下の欄に貼り付けて「読み込み」を押してください。</p>
+        <textarea id="saveCodeIn" class="savecode" placeholder="ここにセーブコードを貼り付け"></textarea>
+        <div class="savecode-row">
+          <button class="ped-btn primary" onclick="loadSaveCode()">読み込み</button>
+          <button class="ped-btn" onclick="importJSON()">JSONファイルを読み込む</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pedigree-wrap">
+      <div class="horse-header">配合表（5代前まで）</div>
+      <table id="pedigreeTable" aria-label="配合表">
+        <tr><td class="gen1 sire" rowspan="16" data-id="s"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen2 sire" rowspan="8" data-id="ss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen3 sire" rowspan="4" data-id="sss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen4 sire" rowspan="2" data-id="ssss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="sssss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> 守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="ssssd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen4 dam" rowspan="2" data-id="sssd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="sssds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="sssdd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen3 dam" rowspan="4" data-id="ssd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen4 sire" rowspan="2" data-id="ssds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="ssdss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="ssdsd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen4 dam" rowspan="2" data-id="ssdd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="ssdds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="ssddd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen2 dam" rowspan="8" data-id="sd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen3 sire" rowspan="4" data-id="sds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen4 sire" rowspan="2" data-id="sdss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="sdsss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="sdssd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen4 dam" rowspan="2" data-id="sdsd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="sdsds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="sdsdd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen3 dam" rowspan="4" data-id="sdd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen4 sire" rowspan="2" data-id="sdds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="sddss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="sddsd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen4 dam" rowspan="2" data-id="sddd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="sddds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="sdddd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen1 dam" rowspan="16" data-id="d"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen2 sire" rowspan="8" data-id="ds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen3 sire" rowspan="4" data-id="dss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen4 sire" rowspan="2" data-id="dsss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="dssss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="dsssd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen4 dam" rowspan="2" data-id="dssd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="dssds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="dssdd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen3 dam" rowspan="4" data-id="dsd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen4 sire" rowspan="2" data-id="dsds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="dsdss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="dsdsd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen4 dam" rowspan="2" data-id="dsdd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="dsdds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="dsddd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen2 dam" rowspan="8" data-id="dd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> 守り</label></div></td><td class="gen3 sire" rowspan="4" data-id="dds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen4 sire" rowspan="2" data-id="ddss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="ddsss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="ddssd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen4 dam" rowspan="2" data-id="ddsd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="ddsds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="ddsdd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen3 dam" rowspan="4" data-id="ddd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen4 sire" rowspan="2" data-id="ddds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="dddss"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="dddsd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen4 dam" rowspan="2" data-id="dddd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td><td class="gen5 sire" data-id="dddds"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予定</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+        <tr><td class="gen5 dam" data-id="ddddd"><div class="cell-name" contenteditable="true"></div><div class="cell-row"><label>持っている数</label><input type="number" class="inp-owned" min="0" placeholder="-"></div><div class="cell-row"><label>生産できる数</label><span class="txt-capacity readout">0</span></div><div class="cell-row"><label>予</label><input type="number" class="inp-target" min="0" placeholder="-"></div><div class="check-row"><label><input type="checkbox" class="inp-bell"> 鈴</label><label><input type="checkbox" class="inp-charm"> お守り</label></div></td></tr>
+      </table>
+      <div class="legend">
+        <div class="legend-item"><div class="dot sire"></div> 父系（牡馬）</div>
+        <div class="legend-item"><div class="dot dam"></div> 母系（牝馬）</div>
+        <div class="legend-item"><div class="dot" style="background:var(--ped-under-bg);border:2px solid var(--ped-under);"></div> 予定 &gt; 生産できる数（赤）</div>
+        <div class="legend-item"><div class="dot" style="background:var(--ped-complete-bg);border:2px solid var(--ped-complete);"></div> 予定 &le; 生産できる数（緑）</div>
+      </div>
+    </div>
+
+    <p class="footer-note">進捗はブラウザの localStorage にも自動保存されます（保険用）。メインはセーブコードで管理してください。</p>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// THEME SYSTEM
+// ============================================================
+const THEME_KEY = "dabimas_theme";
+
+function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isDark = saved ? saved === "dark" : prefersDark;
+  setTheme(isDark ? "dark" : "light", false);
+}
+
+function setTheme(theme, save = true) {
+  const isDark = theme === "dark";
+  document.documentElement.setAttribute("data-theme", theme);
+  const toggle = document.getElementById("navThemeToggle");
+  if (toggle) toggle.checked = isDark;
+  document.getElementById("themeColor").setAttribute("content", isDark ? "#0f172a" : "#f8f9fa");
+  if (save) localStorage.setItem(THEME_KEY, theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme") || "light";
+  setTheme(current === "dark" ? "light" : "dark");
+}
+
+if (window.matchMedia) {
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+    if (!localStorage.getItem(THEME_KEY)) setTheme(e.matches ? "dark" : "light", false);
+  });
+}
+
+// ============================================================
+// APP SWITCHING & MENU
+// ============================================================
+function toggleMenu() {
+  const menu = document.getElementById("navMenu");
+  const btn = document.getElementById("hamburger");
+  menu.classList.toggle("open");
+  btn.classList.toggle("active");
+}
+function switchApp(appId) {
+  document.querySelectorAll(".app-container").forEach(el => el.classList.remove("active"));
+  document.getElementById("app-" + appId).classList.add("active");
+  document.querySelectorAll(".nav-menu-item").forEach(el => el.classList.remove("active"));
+  const menuItem = document.getElementById("menu-" + appId);
+  if (menuItem) menuItem.classList.add("active");
+  document.getElementById("navMenu").classList.remove("open");
+  document.getElementById("hamburger").classList.remove("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+document.addEventListener("click", function(e) {
+  const menu = document.getElementById("navMenu");
+  const btn = document.getElementById("hamburger");
+  if (!menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove("open");
+    btn.classList.remove("active");
+  }
+});
+
+// ============================================================
+// APP 1: スピスタ測定
+// ============================================================
+const DEFAULT_PERIOD_LABELS = [
+  "1歳9-10月","1歳11-12月","2歳1-2月","2歳3-4月","2歳5-6月",
+  "2歳7-8月","2歳9-10月","2歳11-12月","3歳1-2月","3歳3-4月",
+  "3歳5-6月","3歳7-8月","3歳9-10月","3歳11-12月","4歳1-2月",
+  "4歳3-4月","4歳5-6月","4歳7-8月","4歳9-10月","4歳11-12月"
+];
+const DEFAULT_SPEED_CAP_TABLE = {
+  1: [100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100],
+  2: [ 90, 90, 90, 90, 90, 94, 98,100,100,100,100,100,100,100,100,100,100,100,100,100],
+  3: [ 80, 80, 80, 80, 80, 84, 88, 92, 96,100,100,100,100,100,100,100,100,100,100,100],
+  4: [ 70, 70, 70, 70, 70, 74, 78, 82, 86, 90, 94, 98,100,100,100,100,100,100,100,100],
+  5: [ 50, 50, 50, 50, 50, 52, 54, 56, 60, 64, 68, 72, 80, 88, 92, 96,100,100,100,100],
+  6: [ 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 52, 56, 60, 68, 76, 84, 92, 96,100]
+};
+const GROWTH_MASTER = [
+  { id: 1, initialMin: 70, initialMax: 79, label: "初期値79-70%" },
+  { id: 2, initialMin: 60, initialMax: 69, label: "初期値69-60%" },
+  { id: 3, initialMin: 50, initialMax: 59, label: "初期値59-50%" },
+  { id: 4, initialMin: 40, initialMax: 49, label: "初期値49-40%" },
+  { id: 5, initialMin: 30, initialMax: 39, label: "初期値39-30%" },
+  { id: 6, initialMin: 20, initialMax: 29, label: "初期値29-20%" }
+];
+const X_MONTH_TABLE = [
+  { x: 0, label: "3歳3月" },
+  { x: 1, label: "3歳7月" },
+  { x: 2, label: "4歳5月" },
+  { x: 3, label: "5歳3月" },
+  { x: 4, label: "6歳1月" },
+  { x: 5, label: "6歳7月" }
+];
+const RANK_DEF = {
+  A: { min: 100, max: 125, label: "A", desc: "100以上" },
+  B: { min: 85,  max: 99,  label: "B", desc: "85〜99" },
+  C: { min: 70,  max: 84,  label: "C", desc: "70〜84" },
+  D: { min: 55,  max: 69,  label: "D", desc: "55〜69" },
+  E: { min: 1,   max: 54,  label: "E", desc: "55未満" }
+};
+
+let SPEED_CAP_TABLE = loadData();
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem("dabimas_cap_table");
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return JSON.parse(JSON.stringify(DEFAULT_SPEED_CAP_TABLE));
+}
+function resetData() {
+  if (confirm("本当にデフォルト値に戻しますか？")) {
+    SPEED_CAP_TABLE = JSON.parse(JSON.stringify(DEFAULT_SPEED_CAP_TABLE));
+    renderCapTable();
+    localStorage.removeItem("dabimas_cap_table");
+  }
+}
+function exportData() {
+  const data = JSON.stringify(SPEED_CAP_TABLE, null, 2);
+  const blob = new Blob([data], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "dabimas_cap_table.json"; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function getPeriodIndex(age, month) {
+  if (age === 1) {
+    if (month === 9 || month === 10) return 0;
+    if (month === 11 || month === 12) return 1;
+    return -1;
+  }
+  if (age === 2) {
+    if (month === 1 || month === 2) return 2;
+    if (month === 3 || month === 4) return 3;
+    if (month === 5 || month === 6) return 4;
+    if (month === 7 || month === 8) return 5;
+    if (month === 9 || month === 10) return 6;
+    if (month === 11 || month === 12) return 7;
+    return -1;
+  }
+  if (age === 3) {
+    if (month === 1 || month === 2) return 8;
+    if (month === 3 || month === 4) return 9;
+    if (month === 5 || month === 6) return 10;
+    if (month === 7 || month === 8) return 11;
+    if (month === 9 || month === 10) return 12;
+    if (month === 11 || month === 12) return 13;
+    return -1;
+  }
+  if (age === 4) {
+    if (month === 1 || month === 2) return 14;
+    if (month === 3 || month === 4) return 15;
+    if (month === 5 || month === 6) return 16;
+    if (month === 7 || month === 8) return 17;
+    if (month === 9 || month === 10) return 18;
+    if (month === 11 || month === 12) return 19;
+    return -1;
+  }
+  return -1;
+}
+function getCapRate(growthType, age, month) {
+  const idx = getPeriodIndex(age, month);
+  if (idx === -1) return null;
+  return SPEED_CAP_TABLE[growthType][idx];
+}
+function getRankFromValue(val) {
+  if (val >= 100) return 'A';
+  if (val >= 85)  return 'B';
+  if (val >= 70)  return 'C';
+  if (val >= 55)  return 'D';
+  return 'E';
+}
+function getRankBadge(rank, size='normal') {
+  const sz = size === 'small' ? 'font-size:0.75rem;padding:0.15rem 0.5rem;' : '';
+  return `<span class="rank-badge rank-${rank}" style="${sz}">${rank}ランク</span>`;
+}
+function getRankRange(rank) {
+  return RANK_DEF[rank] || null;
+}
+
+function switchMode(mode) {
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".mode-panel").forEach(p => p.classList.remove("active"));
+  document.getElementById("mode-" + mode).classList.add("active");
+  document.getElementById("mode-panel-" + mode).classList.add("active");
+}
+
+function toggleCurrInput(type) {
+  document.getElementById("curr-toggle-num").classList.toggle("active", type === 'num');
+  document.getElementById("curr-toggle-rank").classList.toggle("active", type === 'rank');
+  document.getElementById("curr-input-num").style.display = type === 'num' ? 'block' : 'none';
+  document.getElementById("curr-input-rank").style.display = type === 'rank' ? 'block' : 'none';
+}
+function toggleSpdInput(type) {
+  document.getElementById("spd-toggle-num").classList.toggle("active", type === 'num');
+  document.getElementById("spd-toggle-rank").classList.toggle("active", type === 'rank');
+  document.getElementById("spd-input-num").style.display = type === 'num' ? 'block' : 'none';
+  document.getElementById("spd-input-rank").style.display = type === 'rank' ? 'block' : 'none';
+}
+function toggleStaInput(type) {
+  document.getElementById("sta-toggle-num").classList.toggle("active", type === 'num');
+  document.getElementById("sta-toggle-rank").classList.toggle("active", type === 'rank');
+  document.getElementById("sta-input-num").style.display = type === 'num' ? 'block' : 'none';
+  document.getElementById("sta-input-rank").style.display = type === 'rank' ? 'block' : 'none';
+}
+
+function calculateCurrent() {
+  const isNum = document.getElementById("curr-toggle-num").classList.contains("active");
+  let spdMin, spdMax, formulaText;
+  if (isNum) {
+    const v = parseFloat(document.getElementById("currSpeedNum").value);
+    if (!v) { alert("スピード値を入力してください"); return; }
+    spdMin = v; spdMax = v;
+    formulaText = `${v}`;
+  } else {
+    const r = document.getElementById("currSpeedRank").value;
+    if (!r) { alert("スピードランクを選択してください"); return; }
+    const range = getRankRange(r);
+    spdMin = range.min; spdMax = range.max;
+    formulaText = `${range.min}〜${range.max}（${RANK_DEF[r].desc}）`;
+  }
+
+  const raceCount = parseInt(document.getElementById("currRaceCount").value) || 0;
+  const raceBonus = raceCount * 2;
+  const adjustedMin = Math.max(0, spdMin - raceBonus);
+  const adjustedMax = Math.max(0, spdMax - raceBonus);
+
+  const growthType = parseInt(document.getElementById("currGrowthType").value);
+  const age = parseInt(document.getElementById("currAge").value);
+  const month = parseInt(document.getElementById("currMonth").value);
+  if (!growthType) { alert("成長型を選択してください"); return; }
+  const capRate = getCapRate(growthType, age, month);
+  if (capRate === null) { alert("その年齢・月のデータはありません"); return; }
+
+  const trueMin = Math.round(adjustedMin / (capRate / 100));
+  const trueMax = Math.round(adjustedMax / (capRate / 100));
+
+  let formulaHtml = `入力: ${formulaText}`;
+  if (raceCount > 0) {
+    formulaHtml += ` → レース補正: ${spdMin} − ${raceBonus} = ${adjustedMin}`;
+    if (spdMin !== spdMax) formulaHtml += ` / ${spdMax} − ${raceBonus} = ${adjustedMax}`;
+  }
+  formulaHtml += `  ÷ ${capRate}%`;
+
+  if (trueMin === trueMax) {
+    document.getElementById("currTrueSpeed").textContent = trueMin;
+    document.getElementById("currFormula").innerHTML = formulaHtml + ` = <strong>${trueMin}</strong>`;
+  } else {
+    document.getElementById("currTrueSpeed").textContent = `${trueMin} 〜 ${trueMax}`;
+    const r1 = getRankFromValue(trueMin);
+    const r2 = getRankFromValue(trueMax);
+    const rankText = r1 === r2 ? `（${r1}ランク確定）` : `（${r1}ランク〜${r2}ランクの可能性）`;
+    document.getElementById("currFormula").innerHTML = formulaHtml + ` = <strong>${trueMin}〜${trueMax}</strong> ${rankText}`;
+  }
+  document.getElementById("currCapRate").textContent = capRate;
+  document.getElementById("currResultBox").classList.add("visible");
+}
+function clearCurrent() {
+  document.getElementById("currSpeedNum").value = "";
+  document.getElementById("currSpeedRank").value = "";
+  document.getElementById("currRaceCount").value = "0";
+  document.getElementById("currGrowthType").value = "";
+  document.getElementById("currResultBox").classList.remove("visible");
+}
+
+function calculateInitial() {
+  const isSpdNum = document.getElementById("spd-toggle-num").classList.contains("active");
+  const specifiedGrowth = parseInt(document.getElementById("initGrowthType").value) || null;
+
+  let spdInputMin, spdInputMax, spdDisplay;
+  if (isSpdNum) {
+    const v = parseFloat(document.getElementById("initSpdNum").value);
+    if (!v) { alert("スピード初期値を入力してください"); return; }
+    spdInputMin = v; spdInputMax = v; spdDisplay = `${v}`;
+  } else {
+    const r = document.getElementById("initSpdRank").value;
+    if (!r) { alert("スピードランクを選択してください"); return; }
+    const range = getRankRange(r);
+    spdInputMin = range.min; spdInputMax = range.max; spdDisplay = `${RANK_DEF[r].desc}`;
+  }
+
+  const periodIdx = 0;
+
+  let bestGrowthType, trueSpdMin, trueSpdMax, confidence;
+
+  if (specifiedGrowth) {
+    bestGrowthType = specifiedGrowth;
+    const g = GROWTH_MASTER.find(x => x.id === specifiedGrowth);
+    trueSpdMin = Math.round(spdInputMin / (g.initialMax / 100));
+    trueSpdMax = Math.round(spdInputMax / (g.initialMin / 100));
+    confidence = 'specified';
+  } else {
+    const resultsMin = judgeGrowthType(spdInputMin, periodIdx);
+    const resultsMax = judgeGrowthType(spdInputMax, periodIdx);
+    const merged = mergeGrowthResults(resultsMin, resultsMax);
+    const best = merged[0];
+    bestGrowthType = best ? best.growthType : null;
+    trueSpdMin = resultsMin.length > 0 ? resultsMin[0].trueSpeed : null;
+    trueSpdMax = resultsMax.length > 0 ? resultsMax[0].trueSpeed : null;
+    confidence = best ? best.confidence : 'none';
+  }
+
+  const spdGrowthEl = document.getElementById("spdGrowthResult");
+  if (bestGrowthType) {
+    const confText = confidence === 'specified' ? '指定' : confidence === 'certain' ? '確定' : confidence === 'possible' ? '可能性あり' : '不一致';
+    spdGrowthEl.innerHTML = `成長型 ${bestGrowthType} <span style="font-size:0.9rem;color:var(--muted);">(${confText})</span>`;
+  } else {
+    spdGrowthEl.textContent = "判定不可";
+  }
+
+  if (trueSpdMin !== null && trueSpdMax !== null) {
+    if (trueSpdMin === trueSpdMax) {
+      document.getElementById("spdTrueResult").textContent = trueSpdMin;
+      document.getElementById("spdRankResult").innerHTML = getRankBadge(getRankFromValue(trueSpdMin));
+    } else {
+      document.getElementById("spdTrueResult").textContent = `${trueSpdMin} 〜 ${trueSpdMax}`;
+      const r1 = getRankFromValue(trueSpdMin);
+      const r2 = getRankFromValue(trueSpdMax);
+      const rankText = r1 === r2 ? getRankBadge(r1) : `${getRankBadge(r1)} ${getRankBadge(r2)}`;
+      document.getElementById("spdRankResult").innerHTML = rankText;
+    }
+  }
+  document.getElementById("spdRangeResult").textContent = `入力: ${spdDisplay}`;
+
+  if (!specifiedGrowth) {
+    const resultsMin = judgeGrowthType(spdInputMin, periodIdx);
+    const resultsMax = judgeGrowthType(spdInputMax, periodIdx);
+    renderInitDetailTable(resultsMin, resultsMax);
+    document.getElementById("initDetailTableWrap").style.display = "block";
+  } else {
+    document.getElementById("initDetailTableWrap").style.display = "none";
+  }
+  document.getElementById("initResultBox").style.display = "block";
+}
+
+function judgeGrowthType(initSpeed, periodIdx) {
+  let candidates = [];
+  for (const g of GROWTH_MASTER) {
+    const capRate = SPEED_CAP_TABLE[g.id][periodIdx];
+    const trueSpeed = Math.round(initSpeed / (capRate / 100));
+    const expectedInitMin = Math.round(trueSpeed * g.initialMin / 100);
+    const expectedInitMax = Math.round(trueSpeed * g.initialMax / 100);
+    const inRange = initSpeed >= expectedInitMin && initSpeed <= expectedInitMax;
+    candidates.push({ growthType: g.id, trueSpeed, capRate, inRange, initialRange: `${g.initialMin}-${g.initialMax}%`, label: g.label });
+  }
+  candidates.sort((a, b) => {
+    if (a.inRange !== b.inRange) return b.inRange - a.inRange;
+    return a.growthType - b.growthType;
+  });
+  return candidates;
+}
+function mergeGrowthResults(resMin, resMax) {
+  const map = {};
+  resMin.forEach(r => { map[r.growthType] = { growthType: r.growthType, minMatch: r.inRange, maxMatch: false, trueSpeed: r.trueSpeed }; });
+  resMax.forEach(r => {
+    if (!map[r.growthType]) map[r.growthType] = { growthType: r.growthType, minMatch: false, maxMatch: r.inRange, trueSpeed: r.trueSpeed };
+    else map[r.growthType].maxMatch = r.inRange;
+  });
+  const merged = Object.values(map).map(m => {
+    if (m.minMatch && m.maxMatch) m.confidence = 'certain';
+    else if (m.minMatch || m.maxMatch) m.confidence = 'possible';
+    else m.confidence = 'none';
+    return m;
+  });
+  merged.sort((a, b) => {
+    const score = { certain: 2, possible: 1, none: 0 };
+    if (score[b.confidence] !== score[a.confidence]) return score[b.confidence] - score[a.confidence];
+    return a.growthType - b.growthType;
+  });
+  return merged;
+}
+function renderInitDetailTable(resMin, resMax) {
+  const tbody = document.querySelector("#initDetailTable tbody");
+  tbody.innerHTML = "";
+  const merged = mergeGrowthResults(resMin, resMax);
+  merged.forEach(m => {
+    const g = GROWTH_MASTER.find(x => x.id === m.growthType);
+    const confText = m.confidence === 'certain' ? '✅ 確定' : m.confidence === 'possible' ? '△ 可能性' : '❌ 不一';
+    const confColor = m.confidence === 'certain' ? '#22c55e' : m.confidence === 'possible' ? '#e0a800' : '#ef4444';
+    const capRate = SPEED_CAP_TABLE[m.growthType][0];
+    const trueSpdText = resMin.find(r => r.growthType === m.growthType)?.trueSpeed;
+    const row = document.createElement("tr");
+    row.innerHTML = `<td><strong>型${m.growthType}</strong></td><td>${capRate}%</td><td>${trueSpdText || '--'}</td><td>${g.initialMin}-${g.initialMax}%</td><td style="color:${confColor};font-weight:700;">${confText}</td>`;
+    tbody.appendChild(row);
+  });
+}
+function clearInitial() {
+  document.getElementById("initSpdNum").value = "";
+  document.getElementById("initSpdRank").value = "";
+  document.getElementById("initGrowthType").value = "";
+  document.getElementById("initResultBox").style.display = "none";
+  document.getElementById("initDetailTableWrap").style.display = "none";
+}
+
+function calculateStamina() {
+  const isStaNum = document.getElementById("sta-toggle-num").classList.contains("active");
+  let staMin, staMax;
+  if (isStaNum) {
+    const v = parseFloat(document.getElementById("initStaNum").value);
+    if (!v) { alert("スタミナ初期を入力してください"); return; }
+    staMin = v; staMax = v;
+  } else {
+    const r = document.getElementById("initStaRank").value;
+    if (!r) { alert("スタミナランクを選択してください"); return; }
+    const range = getRankRange(r);
+    staMin = range.min; staMax = range.max;
+  }
+
+  const resultMin = staMin;
+  const resultMax = staMax * 2;
+  const staMinRank = getRankFromValue(resultMin);
+  const staMaxRank = getRankFromValue(resultMax);
+
+  document.getElementById("staResultMin").textContent = resultMin;
+  document.getElementById("staResultMinRank").innerHTML = getRankBadge(staMinRank, 'small');
+  document.getElementById("staResultMax").textContent = resultMax;
+  document.getElementById("staResultMaxRank").innerHTML = getRankBadge(staMaxRank, 'small');
+
+  if (staMinRank === staMaxRank) {
+    document.getElementById("staResultRange").innerHTML = `確定: ${getRankBadge(staMinRank)}`;
+  } else {
+    document.getElementById("staResultRange").innerHTML = `${getRankBadge(staMinRank)} 〜 ${getRankBadge(staMaxRank)} の可能性`;
+  }
+
+  document.getElementById("staminaResultBox").style.display = "block";
+}
+function clearStamina() {
+  document.getElementById("initStaNum").value = "";
+  document.getElementById("initStaRank").value = "";
+  document.getElementById("staminaResultBox").style.display = "none";
+}
+
+function renderCapTable() {
+  const table = document.getElementById("capTable");
+  let html = `<thead><tr><th>時期</th><th>成長型1</th><th>成長型2</th><th>成長型3</th><th>成長型4</th><th>成長型5</th><th>成長型6</th></tr></thead><tbody>`;
+  DEFAULT_PERIOD_LABELS.forEach((label, idx) => {
+    html += `<tr><td><strong>${label}</strong></td>`;
+    for (let gt = 1; gt <= 6; gt++) {
+      const val = SPEED_CAP_TABLE[gt][idx];
+      const isDefault = val === DEFAULT_SPEED_CAP_TABLE[gt][idx];
+      html += `<td class="editable${isDefault ? '' : ' edited'}" onclick="editCell(${gt}, ${idx}, this)">${val}%</td>`;
+    }
+    html += `</tr>`;
+  });
+  html += `</tbody>`;
+  table.innerHTML = html;
+}
+function editCell(gt, idx, td) {
+  const current = SPEED_CAP_TABLE[gt][idx];
+  const input = document.createElement("input");
+  input.type = "number"; input.value = current; input.min = "1"; input.max = "100";
+  input.onblur = function() {
+    const newVal = parseInt(input.value);
+    if (!isNaN(newVal) && newVal >= 1 && newVal <= 100) {
+      SPEED_CAP_TABLE[gt][idx] = newVal;
+      td.textContent = newVal + "%"; td.classList.add("edited");
+      localStorage.setItem("dabimas_cap_table", JSON.stringify(SPEED_CAP_TABLE));
+    } else { td.textContent = current + "%"; }
+  };
+  input.onkeydown = function(e) {
+    if (e.key === "Enter") input.blur();
+    if (e.key === "Escape") { td.textContent = current + "%"; }
+  };
+  td.textContent = ""; td.appendChild(input);
+  input.focus(); input.select();
+}
+
+function copyUrl() {
+  navigator.clipboard.writeText(window.location.href).then(() => { alert("URLをコピーしました！"); }).catch(() => { prompt("以下をコピーしてください:", window.location.href); });
+}
+function shareX() {
+  const text = encodeURIComponent("ダビマスのスピード測定ができる非公式ツール、めっちゃ便利やで！🏇");
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank", "width=600,height=400");
+}
+function shareLine() {
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://social-plugins.line.me/lineit/share?url=${url}`, "_blank");
+}
+
+// ============================================================
+// APP 2: 理論値計算
+// ============================================================
+const baseMap = {
+  0: { sp: 137, st: 136 }, 1: { sp: 137, st: 136 }, 2: { sp: 137, st: 136 }, 3: { sp: 137, st: 136 },
+  4: { sp: 138, st: 135 }, 5: { sp: 138, st: 135 }, 6: { sp: 139, st: 134 }, 7: { sp: 139, st: 134 },
+  8: { sp: 140, st: 133 }, 9: { sp: 141, st: 132 }, 10: { sp: 142, st: 131 },
+};
+const traitsDef = [
+  { key: '短', modSp: 2, modSt: -1 },
+  { key: '速', modSp: 1, modSt: 0 },
+  { key: '長', modSp: 0, modSt: 1 },
+  { key: '走', modSp: 2, modSt: 0 },
+  { key: '中', modSp: 1, modSt: 1 },
+  { key: '強', modSp: 0, modSt: 2 },
+  { key: '雷', modSp: 2, modSt: -1 },
+];
+
+function initTheoryApp() {
+  const traitsContainer = document.getElementById('traits');
+  traitsDef.forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'trait';
+    const name = document.createElement('span');
+    name.className = 'trait-name';
+    name.textContent = t.key;
+    const sel = document.createElement('select');
+    sel.id = 'trait_' + i;
+    for (let v = 0; v <= 4; v++) {
+      const opt = document.createElement('option');
+      opt.value = v; opt.textContent = v;
+      sel.appendChild(opt);
+    }
+    div.appendChild(name);
+    div.appendChild(sel);
+    traitsContainer.appendChild(div);
+  });
+
+  const runMidRow = document.getElementById('runMidRow');
+  const runDiv = document.createElement('div');
+  runDiv.className = 'run-mid-item';
+  const runLabel = document.createElement('label');
+  runLabel.textContent = '走';
+  const runSel = document.createElement('select');
+  runSel.id = 'runNitro';
+  for (let v = 0; v <= 5; v++) {
+    const opt = document.createElement('option');
+    opt.value = v; opt.textContent = v;
+    runSel.appendChild(opt);
+  }
+  runDiv.appendChild(runLabel);
+  runDiv.appendChild(runSel);
+  runMidRow.appendChild(runDiv);
+
+  const midDiv = document.createElement('div');
+  midDiv.className = 'run-mid-item';
+  const midLabel = document.createElement('label');
+  midLabel.textContent = '中';
+  const midSel = document.createElement('select');
+  midSel.id = 'midNitro';
+  for (let v = 0; v <= 5; v++) {
+    const opt = document.createElement('option');
+    opt.value = v; opt.textContent = v;
+    midSel.appendChild(opt);
+  }
+  midDiv.appendChild(midLabel);
+  midDiv.appendChild(midSel);
+  runMidRow.appendChild(midDiv);
+
+  const thunderStrongRow = document.getElementById('thunderStrongRow');
+  const thunderDiv = document.createElement('div');
+  thunderDiv.className = 'thunder-strong-item';
+  const thunderLabel = document.createElement('label');
+  thunderLabel.textContent = '雷';
+  const thunderSel = document.createElement('select');
+  thunderSel.id = 'thunderNitro';
+  for (let v = 0; v <= 4; v++) {
+    const opt = document.createElement('option');
+    opt.value = v; opt.textContent = v;
+    thunderSel.appendChild(opt);
+  }
+  thunderDiv.appendChild(thunderLabel);
+  thunderDiv.appendChild(thunderSel);
+  thunderStrongRow.appendChild(thunderDiv);
+
+  const strongDiv = document.createElement('div');
+  strongDiv.className = 'thunder-strong-item';
+  const strongLabel = document.createElement('label');
+  strongLabel.textContent = '強';
+  const strongSel = document.createElement('select');
+  strongSel.id = 'strongNitro';
+  for (let v = 0; v <= 4; v++) {
+    const opt = document.createElement('option');
+    opt.value = v; opt.textContent = v;
+    strongSel.appendChild(opt);
+  }
+  strongDiv.appendChild(strongLabel);
+  strongDiv.appendChild(strongSel);
+  thunderStrongRow.appendChild(strongDiv);
+
+  const sireData = [
+    { rel: "父", bar: "blue", color: "" },
+    { rel: "父父", bar: "blue", color: "green" },
+    { rel: "父母父", bar: "blue", color: "" },
+    { rel: "母母父", bar: "blue", color: "" },
+    { rel: "父父母父", bar: "red", color: "" },
+    { rel: "父母母父", bar: "red", color: "yellow" },
+    { rel: "母父父母父", bar: "red", color: "green" },
+    { rel: "母母母父", bar: "blue", color: "" },
+    { rel: "父父父母父", bar: "blue", color: "yellow" },
+    { rel: "父母父父母父", bar: "blue", color: "green" },
+    { rel: "父母母父母父", bar: "red", color: "" },
+    { rel: "母父父父母父", bar: "red", color: "" },
+    { rel: "母父母父父母父", bar: "red", color: "yellow" },
+    { rel: "母母父父母父", bar: "red", color: "green" },
+    { rel: "母母父母父", bar: "blue", color: "" },
+    { rel: "母母母母父", bar: "red", color: "yellow" },
+  ];
+  const damData = [
+    { rel: "父", bar: "blue", color: "" },
+    { rel: "母父", bar: "blue", color: "half" },
+    { rel: "父母父", bar: "blue", color: "" },
+    { rel: "母母父", bar: "blue", color: "" },
+    { rel: "父父母父", bar: "red", color: "" },
+    { rel: "父母父", bar: "red", color: "" },
+    { rel: "母父父母父", bar: "red", color: "half" },
+    { rel: "母母母父", bar: "blue", color: "" },
+    { rel: "父父父母父", bar: "blue", color: "" },
+    { rel: "父母父父母父", bar: "blue", color: "half" },
+    { rel: "父母母父母父", bar: "red", color: "" },
+    { rel: "母父父父母父", bar: "red", color: "" },
+    { rel: "母父母父父母父", bar: "red", color: "" },
+    { rel: "母母父父母父", bar: "red", color: "half" },
+    { rel: "母母母父母父", bar: "blue", color: "" },
+    { rel: "母母母母父", bar: "red", color: "" },
+  ];
+  const targetRows = [4, 6, 7, 9, 11, 13, 14, 16];
+
+  function createPedigreeRows(containerId, data) {
+    const container = document.getElementById(containerId);
+    data.forEach((item, idx) => {
+      const rowNum = idx + 1;
+      const row = document.createElement('div');
+      let cls = 'pedigree-row';
+      if (item.color === 'green') cls += ' green';
+      if (item.color === 'yellow') cls += ' yellow';
+      if (item.color === 'half') cls += ' half';
+      row.className = cls;
+
+      const bar = document.createElement('div');
+      bar.className = 'side-bar ' + item.bar;
+      row.appendChild(bar);
+
+      const relSpan = document.createElement('span');
+      relSpan.className = 'relation';
+      relSpan.textContent = item.rel;
+
+      const numSpan = document.createElement('span');
+      numSpan.className = 'row-num';
+      numSpan.textContent = rowNum;
+
+      row.appendChild(relSpan);
+      row.appendChild(numSpan);
+
+      if (targetRows.includes(rowNum)) {
+        const selectsDiv = document.createElement('div');
+        selectsDiv.className = 'spst-selects';
+
+        const spLabel = document.createElement('label');
+        spLabel.innerHTML = 'スピ';
+        const spSelect = document.createElement('select');
+        spSelect.className = 'sp-select';
+        for (let i = 0; i <= 2; i++) {
+          const opt = document.createElement('option');
+          opt.value = i; opt.textContent = i;
+          spSelect.appendChild(opt);
+        }
+        spLabel.appendChild(spSelect);
+
+        const stLabel = document.createElement('label');
+        stLabel.innerHTML = 'スタ';
+        const stSelect = document.createElement('select');
+        stSelect.className = 'st-select';
+        for (let i = 0; i <= 2; i++) {
+          const opt = document.createElement('option');
+          opt.value = i; opt.textContent = i;
+          stSelect.appendChild(opt);
+        }
+        stLabel.appendChild(stSelect);
+
+        selectsDiv.appendChild(spLabel);
+        selectsDiv.appendChild(stLabel);
+        row.appendChild(selectsDiv);
+      }
+
+      container.appendChild(row);
+    });
+  }
+
+  createPedigreeRows('sireRows', sireData);
+  createPedigreeRows('damRows', damData);
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const nitro = parseInt(document.getElementById('nitro').value, 10);
+    const base = baseMap[nitro];
+    const baseSp = base.sp;
+    const baseSt = base.st;
+
+    let traitSp = 0;
+    let traitSt = 0;
+    traitsDef.forEach((t, i) => {
+      const v = parseInt(document.getElementById('trait_' + i).value, 10);
+      traitSp += v * t.modSp;
+      traitSt += v * t.modSt;
+    });
+
+    const runVal = parseInt(document.getElementById('runNitro').value, 10);
+    const runSp = runVal * 1;
+    const runSt = 0;
+
+    const midVal = parseInt(document.getElementById('midNitro').value, 10);
+    const midSp = Math.ceil(midVal / 2);
+    const midSt = Math.floor(midVal / 2);
+
+    const thunderEffects = [
+      { sp: 1.5, st: -2 }, { sp: 1.5, st: -2 },
+      { sp: 2.0, st: -3 }, { sp: 2.0, st: -3 },
+    ];
+    const thunderCount = parseInt(document.getElementById('thunderNitro').value, 10);
+    let thunderSp = 0;
+    let thunderSt = 0;
+    for (let i = 0; i < thunderCount; i++) {
+      thunderSp += thunderEffects[i].sp;
+      thunderSt += thunderEffects[i].st;
+    }
+
+    const strongCount = parseInt(document.getElementById('strongNitro').value, 10);
+    const strongSt = Math.floor(strongCount / 2) * 2;
+
+    let pedSp = 0;
+    let pedSt = 0;
+    document.querySelectorAll('.sp-select').forEach(sel => {
+      pedSp += parseInt(sel.value, 10);
+    });
+    document.querySelectorAll('.st-select').forEach(sel => {
+      pedSt += parseInt(sel.value, 10);
+    });
+
+    const finalSp = Math.floor(baseSp + traitSp + runSp + midSp + thunderSp + pedSp);
+    const finalSt = baseSt + traitSt + runSt + midSt + thunderSt + strongSt + pedSt;
+
+    document.getElementById('resSp').textContent = finalSp;
+    document.getElementById('resSt').textContent = finalSt;
+    document.getElementById('resSub').textContent =
+      '基礎値 スピ' + baseSp + '/スタ' + baseSt +
+      '　　至高ベース' +
+      '　＋　走中ニトロ（走+' + runSp + '　中スピ+' + midSp + 'スタ+' + midSt + '）' +
+      '　＋　雷強ニトロ（雷スピ+' + thunderSp + 'スタ' + thunderSt + '　強スタ+' + strongSt + '）' +
+      '　＋　血統理論値加算';
+    document.getElementById('resultBox').style.display = 'block';
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    document.getElementById('nitro').value = '10';
+    traitsDef.forEach((t, i) => {
+      document.getElementById('trait_' + i).value = '0';
+    });
+    document.getElementById('runNitro').value = '0';
+    document.getElementById('midNitro').value = '0';
+    document.getElementById('thunderNitro').value = '0';
+    document.getElementById('strongNitro').value = '0';
+    document.querySelectorAll('.sp-select').forEach(sel => sel.value = '0');
+    document.querySelectorAll('.st-select').forEach(sel => sel.value = '0');
+    document.getElementById('resultBox').style.display = 'none';
+  });
+}
+
+// ============================================================
+// APP 3: 配合進捗管理
+// ============================================================
+const PED_STORAGE_KEY = 'pedigree_v17';
+const OLD_KEY = 'pedigree_v10';
+
+const GEN5_IDS = ['sssss','ssssd','sssds','sssdd','ssdss','ssdsd','ssdds','ssddd','sdsss','sdssd','sdsds','sdsdd','sddss','sddsd','sddds','sdddd','dssss','dsssd','dssds','dssdd','dsdss','dsdsd','dsdds','dsddd','ddsss','ddssd','ddsds','ddsdd','dddss','dddsd','dddds','ddddd'];
+
+const CHILDREN = {
+  's': ['ss', 'sd'],
+  'd': ['ds', 'dd'],
+  'ss': ['sss', 'ssd'],
+  'sd': ['sds', 'sdd'],
+  'ds': ['dss', 'dsd'],
+  'dd': ['dds', 'ddd'],
+  'sss': ['ssss', 'sssd'],
+  'ssd': ['ssds', 'ssdd'],
+  'sds': ['sdss', 'sdsd'],
+  'sdd': ['sdds', 'sddd'],
+  'dss': ['dsss', 'dssd'],
+  'dsd': ['dsds', 'dsdd'],
+  'dds': ['ddss', 'ddsd'],
+  'ddd': ['ddds', 'dddd'],
+  'ssss': ['sssss', 'ssssd'],
+  'sssd': ['sssds', 'sssdd'],
+  'ssds': ['ssdss', 'ssdsd'],
+  'ssdd': ['ssdds', 'ssddd'],
+  'sdss': ['sdsss', 'sdssd'],
+  'sdsd': ['sdsds', 'sdsdd'],
+  'sdds': ['sddss', 'sddsd'],
+  'sddd': ['sddds', 'sdddd'],
+  'dsss': ['dssss', 'dsssd'],
+  'dssd': ['dssds', 'dssdd'],
+  'dsds': ['dsdss', 'dsdsd'],
+  'dsdd': ['dsdds', 'dsddd'],
+  'ddss': ['ddsss', 'ddssd'],
+  'ddsd': ['ddsds', 'ddsdd'],
+  'ddds': ['dddss', 'dddsd'],
+  'dddd': ['dddds', 'ddddd']
+};
+
+const ALL_IDS = [
+  's','d','ss','sd','ds','dd','sss','ssd','sds','sdd','dss','dsd','dds','ddd',
+  'ssss','sssd','ssds','ssdd','sdss','sdsd','sdds','sddd','dsss','dssd','dsds','dsdd','ddss','ddsd','ddds','dddd',
+  'sssss','ssssd','sssds','sssdd','ssdss','ssdsd','ssdds','ssddd','sdsss','sdssd','sdsds','sdsdd','sddss','sddsd','sddds','sdddd',
+  'dssss','dsssd','dssds','dssdd','dsdss','dsdsd','dsdds','dsddd','ddsss','ddssd','ddsds','ddsdd','dddss','dddsd','dddds','ddddd'
+];
+
+function initPedigreeApp() {
+  attachListeners();
+
+  const oldRaw = localStorage.getItem(OLD_KEY);
+  const newRaw = localStorage.getItem(PED_STORAGE_KEY);
+  if (oldRaw && !newRaw) {
+    document.getElementById('migrateBanner').classList.add('show');
+  }
+
+  loadProgress();
+}
+
+function attachListeners() {
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const ownedInp = td.querySelector('.inp-owned');
+    const targetInp = td.querySelector('.inp-target');
+    const bellInp = td.querySelector('.inp-bell');
+    const charmInp = td.querySelector('.inp-charm');
+    const nameEl = td.querySelector('.cell-name');
+
+    if (ownedInp) ownedInp.addEventListener('input', () => { recalcCapacity(); autoSave(); });
+    if (targetInp) targetInp.addEventListener('input', () => { updateCellColor(td); autoSave(); });
+    if (bellInp) bellInp.addEventListener('change', () => { recalcCapacity(); autoSave(); });
+    if (charmInp) charmInp.addEventListener('change', () => { recalcCapacity(); autoSave(); });
+    if (nameEl) nameEl.addEventListener('input', () => autoSave());
+  });
+}
+
+function getCellState(id) {
+  const td = document.querySelector(`#app-pedigree td[data-id="${id}"]`);
+  if (!td) return null;
+  const isGen5 = td.classList.contains('gen5');
+  const isDam = td.classList.contains('dam');
+  const ownedInp = td.querySelector('.inp-owned');
+  const targetInp = td.querySelector('.inp-target');
+  const bellInp = td.querySelector('.inp-bell');
+  const charmInp = td.querySelector('.inp-charm');
+  return {
+    id, td, isGen5, isDam,
+    owned: ownedInp ? parseInt(ownedInp.value || '0', 10) : 0,
+    target: targetInp ? parseInt(targetInp.value || '0', 10) : 0,
+    bell: bellInp ? bellInp.checked : false,
+    charm: charmInp ? charmInp.checked : false
+  };
+}
+
+function calcCapacity(id) {
+  const state = getCellState(id);
+  if (!state) return 0;
+
+  if (state.isGen5) {
+    if (state.isDam) {
+      return state.owned * (state.bell ? 14 : 9);
+    } else {
+      return state.owned * 5;
+    }
+  }
+
+  const children = CHILDREN[id];
+  if (!children) return 0;
+  const left = calcCapacity(children[0]);
+  const right = calcCapacity(children[1]);
+  return Math.min(left, right);
+}
+
+function recalcCapacity() {
+  const capacities = {};
+  ALL_IDS.forEach(id => {
+    capacities[id] = calcCapacity(id);
+  });
+
+  ALL_IDS.forEach(id => {
+    const td = document.querySelector(`#app-pedigree td[data-id="${id}"]`);
+    if (!td) return;
+    const capEl = td.querySelector('.txt-capacity');
+    if (capEl) capEl.textContent = capacities[id];
+    updateCellColor(td);
+  });
+}
+
+function updateCellColor(td) {
+  const capEl = td.querySelector('.txt-capacity');
+  const targetInp = td.querySelector('.inp-target');
+  if (!capEl || !targetInp) return;
+  const cap = parseInt(capEl.textContent || '0', 10);
+  const target = parseInt(targetInp.value || '0', 10);
+  td.classList.remove('under', 'complete');
+  if (target > 0) {
+    if (target > cap) td.classList.add('under');
+    else td.classList.add('complete');
+  }
+}
+
+function checkAllBells() {
+  document.querySelectorAll('#app-pedigree td[data-id].dam').forEach(td => {
+    const bellInp = td.querySelector('.inp-bell');
+    if (bellInp) bellInp.checked = true;
+  });
+  recalcCapacity();
+  autoSave();
+}
+
+function checkAllCharms() {
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const charmInp = td.querySelector('.inp-charm');
+    if (charmInp) charmInp.checked = true;
+  });
+  recalcCapacity();
+  autoSave();
+}
+
+function migrateFromV10() {
+  try {
+    const oldRaw = localStorage.getItem(OLD_KEY);
+    if (!oldRaw) { alert('移行元のデータが見つかりません'); return; }
+    const oldData = JSON.parse(oldRaw);
+    if (!oldData || typeof oldData !== 'object') { alert('移行元のデータが破損しています'); return; }
+
+    const payload = { bells: [], charms: [], names: {}, owned: {}, targets: {}, globalGoal: 0 };
+
+    if (oldData.names) payload.names = oldData.names;
+    if (oldData.targets) payload.targets = oldData.targets;
+    if (oldData.bells) payload.bells = oldData.bells;
+    if (oldData.charms) payload.charms = oldData.charms;
+    if (oldData.globalGoal) payload.globalGoal = oldData.globalGoal;
+
+    if (oldData.currents) {
+      GEN5_IDS.forEach(id => {
+        if (oldData.currents[id] !== undefined && oldData.currents[id] > 0) {
+          payload.owned[id] = oldData.currents[id];
+        }
+      });
+    }
+
+    localStorage.setItem(PED_STORAGE_KEY, JSON.stringify(payload));
+    document.getElementById('migrateBanner').classList.remove('show');
+    loadProgress();
+    alert('v10のデータを移行しました');
+  } catch (e) {
+    alert('移行に失敗しました: ' + e.message);
+  }
+}
+
+function getCurrentPayload() {
+  const payload = { bells: [], charms: [], names: {}, owned: {}, targets: {}, globalGoal: 0 };
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const id = td.dataset.id;
+    const bellInp = td.querySelector('.inp-bell');
+    const charmInp = td.querySelector('.inp-charm');
+    const nameEl = td.querySelector('.cell-name');
+    const ownedInp = td.querySelector('.inp-owned');
+    const targetInp = td.querySelector('.inp-target');
+
+    if (bellInp && bellInp.checked) payload.bells.push(id);
+    if (charmInp && charmInp.checked) payload.charms.push(id);
+    if (nameEl && nameEl.textContent.trim()) payload.names[id] = nameEl.textContent.trim();
+    if (ownedInp) {
+      const v = parseInt(ownedInp.value || '0', 10);
+      if (v > 0) payload.owned[id] = v;
+    }
+    if (targetInp) {
+      const v = parseInt(targetInp.value || '0', 10);
+      if (v > 0) payload.targets[id] = v;
+    }
+  });
+  return payload;
+}
+
+function applyPayload(payload) {
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const id = td.dataset.id;
+    const bellInp = td.querySelector('.inp-bell');
+    const charmInp = td.querySelector('.inp-charm');
+    const nameEl = td.querySelector('.cell-name');
+    const ownedInp = td.querySelector('.inp-owned');
+    const targetInp = td.querySelector('.inp-target');
+
+    if (bellInp) bellInp.checked = (payload.bells || []).includes(id);
+    if (charmInp) charmInp.checked = (payload.charms || []).includes(id);
+    if (nameEl) nameEl.textContent = (payload.names && payload.names[id]) ? payload.names[id] : '';
+    if (ownedInp) ownedInp.value = (payload.owned && payload.owned[id] !== undefined) ? payload.owned[id] : '';
+    if (targetInp) targetInp.value = (payload.targets && payload.targets[id] !== undefined) ? payload.targets[id] : '';
+  });
+  recalcCapacity();
+}
+
+function autoSave() {
+  const payload = getCurrentPayload();
+  localStorage.setItem(PED_STORAGE_KEY, JSON.stringify(payload));
+}
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(PED_STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    if (!data || typeof data !== 'object') return;
+    applyPayload(data);
+  } catch (e) { console.error(e); }
+}
+
+function generateSaveCode() {
+  const payload = getCurrentPayload();
+  const code = JSON.stringify(payload);
+  document.getElementById('saveCodeOut').value = code;
+}
+
+function copySaveCode() {
+  const el = document.getElementById('saveCodeOut');
+  if (!el.value) {
+    alert('先に「生成」ボタンを押してください');
+    return;
+  }
+  el.select();
+  document.execCommand('copy');
+  alert('セーブコードをコピーしました');
+}
+
+function loadSaveCode() {
+  const code = document.getElementById('saveCodeIn').value.trim();
+  if (!code) { alert('セーブコードを貼り付けてください'); return; }
+  try {
+    const payload = JSON.parse(code);
+    if (!payload || typeof payload !== 'object') throw new Error('Invalid');
+    applyPayload(payload);
+    autoSave();
+    alert('セーブコードを読み込みました');
+  } catch (e) {
+    alert('無効なセーブコードです。JSON形式か確認してください');
+  }
+}
+
+function resetAll() {
+  if (!confirm('すべての入力・チェックを解除しますか？')) return;
+  document.querySelectorAll('#app-pedigree td[data-id]').forEach(td => {
+    const nameEl = td.querySelector('.cell-name');
+    const ownedInp = td.querySelector('.inp-owned');
+    const targetInp = td.querySelector('.inp-target');
+    const bellInp = td.querySelector('.inp-bell');
+    const charmInp = td.querySelector('.inp-charm');
+    const capEl = td.querySelector('.txt-capacity');
+
+    if (nameEl) nameEl.textContent = '';
+    if (ownedInp) ownedInp.value = '';
+    if (targetInp) targetInp.value = '';
+    if (bellInp) bellInp.checked = false;
+    if (charmInp) charmInp.checked = false;
+    if (capEl) capEl.textContent = '0';
+    td.classList.remove('under', 'complete');
+  });
+  document.getElementById('saveCodeOut').value = '';
+  document.getElementById('saveCodeIn').value = '';
+  autoSave();
+}
+
+function exportJSON() {
+  const payload = getCurrentPayload();
+  payload.exportedAt = new Date().toISOString();
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '配合進捗.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importJSON() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = evt => {
+      try {
+        const payload = JSON.parse(evt.target.result);
+        if (!payload || typeof payload !== 'object') throw new Error('Invalid');
+        applyPayload(payload);
+        autoSave();
+        alert('JSONファイルを読み込みました');
+      } catch (err) { alert('ファイルの読み込みに失敗しました'); }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// ============================================================
+// INIT ALL APPS
+// ============================================================
+function init() {
+  initTheme();
+  renderCapTable();
+  const xTable = document.getElementById("xMonthTable");
+  let xHtml = `<thead><tr><th>成長型</th><th>初期値範囲</th><th>最速ピークアウト時期</th></tr></thead><tbody>`;
+  const PEAK_INIT_RANGE = [
+    { gt: 1, range: "79-70%" }, { gt: 2, range: "69-60%" }, { gt: 3, range: "59-50%" },
+    { gt: 4, range: "49-40%" }, { gt: 5, range: "39-30%" }, { gt: 6, range: "29-20%" }
+  ];
+  X_MONTH_TABLE.forEach(x => {
+    const gt = x.x + 1;
+    const initRange = PEAK_INIT_RANGE.find(p => p.gt === gt)?.range || "";
+    xHtml += `<tr><td><strong>成長型 ${gt}</strong></td><td>${initRange}</td><td>${x.label}</td></tr>`;
+  });
+  xHtml += `</tbody>`;
+  xTable.innerHTML = xHtml;
+
+  initTheoryApp();
+  initPedigreeApp();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
